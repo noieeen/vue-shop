@@ -8,6 +8,9 @@ import Orders from "./views/Orders.vue";
 import Profile from "./views/Profile.vue";
 import Contactus from "./views/ContactUs.vue";
 //import Checkout from "./views/Checkout.vue";
+import P_Detail from './views/P_Detail.vue'
+import userProfile from './views/userProfile.vue'
+
 import {fb} from "./firebase";
 require('firebase/auth')
 
@@ -74,6 +77,18 @@ const router = new Router({
       component: () =>
         import(/* webpackChunkName:"about" */ "./views/ProductPage.vue")
     },
+    {
+      path: "/userProfile",
+      name: "userProfile",
+      component: () =>
+        import(/* webpackChunkName:"about" */ "./views/userProfile.vue")
+    },
+    {
+      path: '/products/:id',
+      name: 'P_Detail',
+      component: P_Detail,
+      props: true
+    }
    
   ]
 });

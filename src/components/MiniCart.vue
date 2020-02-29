@@ -1,6 +1,6 @@
 <template>
   <div class="mini-cart">
-    Modal
+    <!-- Modal -->
     <div
       class="modal fade"
       id="miniCart"

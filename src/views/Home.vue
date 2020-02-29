@@ -25,6 +25,10 @@
     <!-- <Productslist /> -->
     <login></login>
     <mini-cart></mini-cart>
+
+    <Homeslide/>
+
+
     
   </div>
 </template>
@@ -34,8 +38,11 @@
 // import HelloWorld from "@/components/HelloWorld.vue";
 import Hero from "@/components/Hero.vue";
 import Products from "@/sections/Products.vue";
+import Homeslide from "@/components/Homeslide.vue";
 //import Productslist from "@/sections/ProductList.vue";
 import Login from "@/components/Login.vue";
+
+
 
 export default {
   name: "home",
@@ -43,7 +50,9 @@ export default {
     // HelloWorld
     Hero,
     Products,
-    Login
+    Login,
+    Homeslide,
+    
   }
 };
 </script>

@@ -7,33 +7,27 @@
           <div class="card product-item">
             <carousel :perPage="1">
               <!--slide-->
-              <slide v-for="(image, index) in product.images" >
-                <img
-                  :src="image"
-                  class="card-img-top"
-                  alt="..."
-                  width="250px"
-                  @click="we(product)"
-                />
+              <slide v-for="(image, index) in product.images">
+                <img :src="image" class="card-img-top" alt="..." width="250px" @click="we(product)" />
               </slide>
             </carousel>
 
             <div class="card-body">
               <div class="d-flex justify-content-between">
-                <h5 class="card-title">{{ product.name }}</h5>                
+                <h5 class="card-title">{{ product.name }}</h5>
                 <h5 class="card-price">
                   {{
-                    product.price
-                      | currency("THB", 2, {
-                        symbolOnLeft: false,
-                        spaceBetweenAmountAndSymbol: true
-                      })
+                  product.price
+                  | currency("THB", 2, {
+                  symbolOnLeft: false,
+                  spaceBetweenAmountAndSymbol: true
+                  })
                   }}
                 </h5>
               </div>
               <h5 class="card-title">DETAILS</h5>
-              <p class="card-text" v-html="product.description"></p>
-
+              <p class="card-text" v-html="product.description" v-model="text" :maxlength="20"></p>
+              <hr />
               <add-to-cart
                 :image="getImage(product.images)"
                 :p-id="product['.key']"
@@ -42,6 +36,16 @@
               ></add-to-cart>
             </div>
           </div>
+          <hr />
+          <router-link
+            :to="{name : 'P_Detail',params:
+          {id:product.name,
+          name:product.name,
+          images:getImage(product.images),
+          description:product.description}}"
+            tag="button"
+            class="btn btn-outline-success"
+          >P detail</router-link>
         </div>
       </div>
     </div>
@@ -66,19 +70,19 @@ export default {
         price: null,
         tags: [],
         images: []
-      }
+      },
+      text: "",
+      maxlength: 20
     };
   },
 
   methods: {
     getImage(images) {
       return images[0];
-      
     },
-  we(product){
-    console.log(product.name)
-  }
-    
+    we(product) {
+      console.log(product.name);
+    }
   },
 
   firestore() {

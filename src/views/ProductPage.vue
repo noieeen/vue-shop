@@ -7,7 +7,7 @@
     <div class="container h-100">
       <div class="row p-5 h-100 justify-content-center align-items-center"></div>
     </div>
-    <Products />
+
     <login></login>
     <mini-cart></mini-cart>
   </div>

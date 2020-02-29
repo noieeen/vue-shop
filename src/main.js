@@ -5,8 +5,9 @@ import jQuery from "jquery";
 import { fb } from "./firebase";
 import VueFirestore from "vue-firestore";
 
+
 //import stripe from 'stripe';
-const stripe = require('stripe')('sk_test_8amaJfyLyRDDyyWfsAxqy2DK00aEdVg4L8');
+//const stripe = require('stripe')('sk_test_8amaJfyLyRDDyyWfsAxqy2DK00aEdVg4L8');
 
 
 // import Vuex from 'vuex';
@@ -79,3 +80,4 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
  
 Vue.use(VueAxios, axios)
+

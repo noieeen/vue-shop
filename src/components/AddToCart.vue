@@ -39,6 +39,7 @@ export default {
       $('#ProductPopup').modal('show');
       // this.$store.commit('addToCart', this.item)
       // console.log('pId',this.item);
+
     }
 
   }
