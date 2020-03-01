@@ -1,8 +1,9 @@
 <template>
   <div class="home">
     <Navbar></Navbar>
-    <Hero />
-    <products-list></products-list>
+     <Homeslide/>
+    <!-- <Hero /> -->
+    <!-- <products-list></products-list> -->
 
     <div class="container h-100">
       <div class="row p-5 h-100 justify-content-center align-items-center">
@@ -17,7 +18,7 @@
             reprehenderit, reiciendis ex? Libero quasi natus veniam voluptatum,
             voluptas exercitationem ratione consectetur et!
           </p>
-          <button class="btn custom-btn btn-outline-primary mr-4">Browse Products</button>
+          <button class="btn custom-btn btn-outline-primary mr-4">About Us</button>
         </div>
       </div>
     </div>
@@ -26,7 +27,7 @@
     <login></login>
     <mini-cart></mini-cart>
 
-    <Homeslide/>
+   
 
 
     

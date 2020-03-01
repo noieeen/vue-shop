@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <nav class="navbar navbar-expand-lg navbar-light bg-none">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
       <div class="container">
         <router-link to="/" class="navbar-brand" href="#">Vue Shop</router-link>
       
@@ -38,7 +38,7 @@
             aria-label="Search"            
           />
           <a
-            class="btn btn-outline-success my-2 my-sm-2"
+            class="btn btn-outline-primary my-2 my-sm-2"
             type="submit"
             data-toggle="modal"
             data-target="#login"
@@ -74,5 +74,11 @@ export default {
     padding-bottom: 16px;
     background-color: #fff !important;
   }
+}
+.fa-cart-plus{
+  color: #fff;
+}
+.btn-outline-primary{
+  color: #fff;
 }
 </style>

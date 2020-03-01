@@ -12,7 +12,7 @@
                 <h5 class="mt-0">
                   {{item.productName}}
                   <span
-                    class="float-right mr-5" 
+                    class="float-right mr-5"
                     @click="$store.commit('removeFromCart',item)"
                   >X</span>
                 </h5>
@@ -27,8 +27,29 @@
             </li>
           </ul>
         </div>
-        <div class="col-md-3">Total Price</div>
+        <div class="col-md-3">
+          <p>Total Price : {{ this.$store.getters.totalPrice | currency }}</p>
+          <button class="btn custom-btn btn-outline-info m-2">Checkout Order</button>
+        </div>
       </div>
+      <div class="d-flax float-right p-5">
+        <exportPDF>
+          
+        </exportPDF>
+      </div>
+      
     </div>
+    
   </div>
 </template>
+
+<script>
+
+import exportPDF from '@/components/exportPDF.vue'
+
+export default {
+  components:{
+    exportPDF,
+  }
+}
+</script>

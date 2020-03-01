@@ -105,7 +105,7 @@
                   <div class="form-group">
                     <textarea
                       type="text"
-                      v-model="profile.address"
+                      v-model="profile.comAddress"
                       placeholder="Company Address"
                       class="form-control"
                       rows="3"
@@ -118,7 +118,7 @@
                     <label>Fax.</label>
                     <input
                       type="text"
-                      v-model="profile.phone"
+                      v-model="profile.fax"
                       placeholder="Fax."
                       class="form-control"
                     />
@@ -130,7 +130,7 @@
                     <label>Company Email</label>
                     <input
                       type="text"
-                      v-model="profile.phone"
+                      v-model="profile.comEmail"
                       placeholder="Company Email"
                       class="form-control"
                     />
@@ -530,7 +530,9 @@ export default {
         fname: null,
         lname: null,
         phone: null,
-        address: null,
+        comAddress: null,
+        fax:null,
+        comEmail:null,
         country: null,
         zipcode: null,
         
@@ -578,10 +580,14 @@ export default {
       // console.log(this.$firestore.profile.name);
       this.$firestore.profile.update({
         // id:this.profile.uid,
-        name: this.profile.name,
+        fname: this.profile.fname,
+        lname: this.profile.lname,
         phone: this.profile.phone,
-        address: this.profile.address,
-        postcode: this.profile.postcode
+        comAddress: this.profile.comAddress,
+        fax: this.profile.fax,
+        comEmail: this.profile.comEmail,
+        country: this.profile.country,
+        zipcode: this.profile.zipcode
       });
     },
     uploadImage() {}

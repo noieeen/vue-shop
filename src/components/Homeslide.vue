@@ -1,6 +1,6 @@
 <template>
   <div class="home-slide">
-    <h1 class="text-center">home slide</h1>
+    <h1 class="text-center m-5">Welcome</h1>
     <div class="container jusify-content-center">
 
       <!-- <carousel :perPage="1">
@@ -33,15 +33,20 @@
          <li data-target="#carouselId" data-slide-to="2"></li>
        </ol>
        <div class="carousel-inner " role="listbox">
+           
          <div class="carousel-item active align-items-center">
-           <img src="/img/slide1.jpg"alt="First slide" width="1000px">
+           <img src="/img/slide1.jpg" class="d-block w-100" alt="First slide" width="1000px">
+         <div class="carousel-caption d-none d-md-block">
+             <h4>product</h4>
+         </div>
          </div>
          <div class="carousel-item">
-           <img src="/img/slide1.jpg" alt="Second slide" width="1000px">
+           <img src="/img/slide1.jpg" class="d-block w-100" alt="Second slide" width="1000px">
          </div>
          <div class="carousel-item">
-           <img src="/img/slide1.jpg" alt="Third slide" width="1000px">
+           <img src="/img/slide1.jpg" class="d-block w-100" alt="Third slide" width="1000px">
          </div>
+         
        </div>
        <a class="carousel-control-prev" href="#carouselId" role="button" data-slide="prev">
          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -52,7 +57,12 @@
          <span class="sr-only">Next</span>
        </a>
      </div>
+     <dir class="d-flex justify-content-center mt-4 ">
+       <router-link to="/products" tag="button" class="btn custom-btn btn-outline-success mr-3">Products</router-link>
+       <router-link to="/products" tag="button" class="btn custom-btn btn-outline-info mr-3">Exploer</router-link>
+     </dir>
     </div>
+    
   </div>
 </template>
 <script>
