@@ -15,61 +15,46 @@ export default {
   name: "exportPDF",
   data() {
     return {
-      item: this.$store.state.cart
+      item: this.$store.state.cart,
+      totalPrice: this.$store.getters.totalPrice
     };
   },
   methods: {
     pdf() {
-      //   var name = prompt("What is your name?");
-      //   var multiplier = prompt("Enter a number:");
-      //   multiplier = parseInt(multiplier);
+      var item = this.item;
 
-      //   var doc = new jsPDF();
-      //   doc.setFontSize(22);
-      //   doc.text(20, 20, "Questions");
-      //   doc.setFontSize(16);
-      //   doc.text(20, 30, "This belongs to: " + name);
+      //console.log(item[0].productName);
 
-      //   for (var i = 1; i <= 12; i++) {
-      //     doc.text(20, 30 + i * 10, i + " x " + multiplier + " = ___");
-      //   }
+      var head = [["Product Name", "Product Quantity", "Price"]];
+      var body = [];
 
-      //   doc.addPage();
-      //   doc.setFontSize(22);
-      //   doc.text(20, 20, "Answers");
-      //   doc.setFontSize(16);
-
-      //   for (var i = 1; i <= 12; i++) {
-      //     doc.text(
-      //       20,
-      //       30 + i * 10,
-      //       i + " x " + multiplier + " = " + i * multiplier
-      //     );
-      //   }
+      for (let i in item) {
+        body.push([item[i].productName, item[i].productQuantity, "price"]);
+      }
 
       var doc = new jsPDF();
-      // You can use html:
-      doc.text("VUE SHOP", 20, 20);
-      doc.autoTable({ html: "#my-table" });
+      doc.setFontSize(20);
+      doc.setFont("helvetica");
+      doc.setFontType("bold");
+      doc.text("NHAMHA SHOP", 20, 35);
 
-      // Or JavaScript:
-      doc.autoTable({
-        head: [["Product Name", "Quantity", "Price"]],
-        body: [
-          ["David", "david@example.com", "Sweden"],
-          ["Castille", "castille@example.com", "Norway"]
-          // ...
-        ]
-      });
-      doc.text("Total : ", 20, 80);
-      doc.line(200, 90, 150, 90);
-      doc.text("Signature", 165, 100);
+      doc.setFontSize(12);
+      doc.setFont("default");
+      doc.setFontType("normal");
+      doc.text("Name : ", 130, 20);
+      doc.text("Company Name : ", 130, 25);
+      doc.text("Company Address : ", 130, 30);
+      doc.text("Company Email : ", 130, 35);
+      doc.text("Company Phone : ", 130, 40);
+      doc.text("Order Tag : ", 130, 45);
+      doc.text("Date Order : ", 130, 50);
+      doc.autoTable({ head: head, body: body, margin: { top: 60 } });
+
+      doc.text("Total : " + this.totalPrice, 20, 150);
+      doc.line(200, 200, 150, 200);
+      doc.text("Signature", 165, 210);
       //doc.text(this.item.productName,10,150);
       doc.save("invoice.pdf");
-
-      for (let i in this.item) {
-        console.table(i);
-      }
     }
   }
 };

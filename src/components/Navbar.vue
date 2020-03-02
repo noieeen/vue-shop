@@ -31,12 +31,7 @@
           </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
-          <input
-            class="form-control mr-sm-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"            
-          />
+          <search-component/>
           <a
             class="btn btn-outline-primary my-2 my-sm-2"
             type="submit"
@@ -57,12 +52,17 @@
 </template>
 
 <script>
+
+import SearchComponent from './SearchComponent'
+
 export default {
   name: "Navbar",
   props: {
     msg: String
   },
-  components: {}
+  components: {
+    SearchComponent
+  }
 };
 </script>
 
