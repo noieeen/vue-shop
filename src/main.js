@@ -5,6 +5,17 @@ import jQuery from "jquery";
 import { fb } from "./firebase";
 import VueFirestore from "vue-firestore";
 
+/* CSS */
+import './assets/css/tailwind.css'
+
+/* SEARCH */
+
+import Autocomplete from '@trevoreyre/autocomplete-vue'
+import '@trevoreyre/autocomplete-vue/dist/style.css'
+
+Vue.use(Autocomplete)
+
+
 
 //import stripe from 'stripe';
 //const stripe = require('stripe')('sk_test_8amaJfyLyRDDyyWfsAxqy2DK00aEdVg4L8');

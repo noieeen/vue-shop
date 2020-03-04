@@ -80,9 +80,9 @@ export default {
     getImage(images) {
       return images[0];
     },
-    we(product) {
-      console.log(product.name);
-    }
+    // we(product) {
+    //   console.log(product.name);
+    // }
   },
 
   firestore() {
