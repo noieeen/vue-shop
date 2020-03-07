@@ -32,13 +32,12 @@
             
         </ul>
         <form class="form-inline my-2 my-lg-0">
-          <search-component/>
-          <a
-            class="btn btn-outline-primary my-2 my-sm-2"
-            type="submit"
-            data-toggle="modal"
-            data-target="#login"
-          >Log In / Sign Up</a>
+          <a 
+          class="mr-5">
+            <search-component/>
+          </a>
+          
+      
           <a
             class="btn btn-outline-info border-0 mx-2 my-2 my-sm-0"
             data-toggle="modal"
@@ -46,7 +45,7 @@
             <i class="fas fa-cart-plus"></i>
           </a>
            <a
-            class="btn btn-danger my-2 my-sm-2"
+            class="btn custom-btn btn-danger my-2 my-sm-2"
            @click="logout()"
           >Log out</a>
         </form>
@@ -96,7 +95,7 @@ export default {
 .fa-cart-plus{
   color: #fff;
 }
-.btn-outline-primary{
+.btn-danger{
   color: #fff;
 }
 </style>

@@ -10,7 +10,7 @@
       placeholder="Search . . .     "
       label="name"
       track-by="name"
-      class="multiselect-container multiselect"
+      class="multiselect-container multiselect custom-multiselect mr-md-5"
     ></multiselect>
 
     <!-- <div class="form-group has-search"> -->

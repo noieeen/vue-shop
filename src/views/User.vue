@@ -2,7 +2,10 @@
   <div class="user">
     <Navbar/>
     <div class="container h-100">
-      <h1>user</h1>
+      <div class="row h-100 justify-content-center align-items-center p-4">
+        <h1>user session</h1>
+      </div>
+      
     </div> 
     <!-- <mini-cart></mini-cart> -->
     <login></login>
