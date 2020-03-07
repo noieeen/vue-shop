@@ -45,6 +45,10 @@
             data-target="#miniCart">
             <i class="fas fa-cart-plus"></i>
           </a>
+           <a
+            class="btn btn-danger my-2 my-sm-2"
+           @click="logout()"
+          >Log out</a>
         </form>
       </div>
       </div>
@@ -55,6 +59,7 @@
 <script>
 
 import SearchComponent from './SearchComponent3'
+import { fb , db } from "../firebase";
 
 export default {
   name: "NavbarUser",
@@ -63,6 +68,18 @@ export default {
   },
   components: {
     SearchComponent
+  },
+  methods:{
+       logout() {
+      fb.auth()
+        .signOut()
+        .then(() => {
+          this.$router.replace("/");
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
   }
 };
 </script>

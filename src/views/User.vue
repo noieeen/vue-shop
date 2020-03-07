@@ -5,13 +5,18 @@
       <h1>user</h1>
     </div> 
     <!-- <mini-cart></mini-cart> -->
+    <login></login>
   </div>
 
 </template>
 <script>
 import Navbar from "@/components/NavbarUser.vue";
+import Login from "@/components/Login.vue";
 export default {
   name: "user",
-  components: { Navbar }
+  components: { Navbar,Login },
+  methods:{
+    
+  }
 };
 </script>

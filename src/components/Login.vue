@@ -163,8 +163,10 @@ export default {
                 //console.log("+>", role);
                 if (role == "user") {
                   console.log("go to user");
-                } else if (role == "admid") {
+                  this.$router.replace("user");
+                }else if (role == "admin") {
                   console.log("go to admin");
+                  this.$router.replace("admin");
                 }
               }
             })
@@ -172,7 +174,7 @@ export default {
               console.log("Error getting document", err);
             });
 
-          this.$router.replace("admin");
+          //this.$router.replace("admin");
         })
         .catch(function(error) {
           //Handle Errors here
@@ -202,7 +204,8 @@ export default {
               console.error("Error eriting doc", error);
             });
 
-          this.$router.replace("admin");
+         // this.$router.replace("admin");
+         this.$router.replace("user");
         })
         .catch(function(error) {
           let errorMSG = error.message;
