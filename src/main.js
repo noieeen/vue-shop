@@ -15,6 +15,10 @@ import '@trevoreyre/autocomplete-vue/dist/style.css'
 
 Vue.use(Autocomplete)
 
+import Multiselect from 'vue-multiselect'
+
+// register globally
+Vue.use(Multiselect)
 
 
 //import stripe from 'stripe';

@@ -8,11 +8,16 @@ import Orders from "./views/Orders.vue";
 import Profile from "./views/Profile.vue";
 import Contactus from "./views/ContactUs.vue";
 //import Checkout from "./views/Checkout.vue";
-import P_Detail from './views/P_Detail.vue'
-import userProfile from './views/userProfile.vue'
+import P_Detail from "./views/P_Detail.vue";
 
-import {fb} from "./firebase";
-require('firebase/auth')
+
+import User from "./views/User.vue";
+import EditProducts from "./views/Admin.vue";
+import userProfile from "./views/userProfile.vue";
+
+
+import { fb } from "./firebase";
+require("firebase/auth");
 
 Vue.use(Router);
 
@@ -52,7 +57,32 @@ const router = new Router({
           component: Orders
         }
       ]
-    }, 
+    },
+    {
+      path: "/user",
+      name: "user",
+      component: User,
+      //meta: { requiresAuth: true },
+
+      children: [
+        {
+          path: "profile",
+          name: "profile",
+          component: userProfile
+        },
+        {
+          path: "editproducts",
+          name: "editproducts",
+          component: EditProducts
+        },
+        // {
+        //   path: "Checkout",
+        //   name: "Checkout",
+        //   component: Checkout
+        // },
+        
+      ]
+    },
     {
       path: "/checkout",
       name: "checkout",
@@ -84,12 +114,12 @@ const router = new Router({
         import(/* webpackChunkName:"about" */ "./views/userProfile.vue")
     },
     {
-      path: '/products/:id',
-      name: 'P_Detail',
+      path: "/products/:id",
+      name: "P_Detail",
       component: P_Detail,
       props: true
-    }
-   
+    },
+    
   ]
 });
 

@@ -8,13 +8,13 @@
         type="text"
         class="form-control"
         autocomplete="off"
-        v-model="currentProduct"
-        @input="filterProducts"
+        v-model="state"
+        @input="filterStates"
         @focus="modal = true"
         placeholder="  Search"
       />
     </div>
-    <!-- <div v-if="filteredStates && modal" class="z-10">
+    <div v-if="filteredStates && modal" class="z-10">
       <ul class="w-48 bg-gray-700 text-white">
         <li
           class="py-2 border-b cursor-pointer"
@@ -25,18 +25,18 @@
           
         </li>
       </ul>
-    </div> -->
-    <!-- <div v-if="filteredProducts && modal" class="z-10">
+    </div>
+    <!-- <div v-if="filteredStates && modal" class="z-10">
       <ul class="w-48 bg-gray-700 text-white">
         <li
           class="py-2 border-b cursor-pointer"
           v-for="product in products"
-          @click="setProduct(filteredProducts)"
+          @click="setState(filteredStates)"
         >
           {{ product.name }}
-        </li>
+        </li> -->
       </ul>
-    </div> -->
+    </div>
   </div>
 </template>
 <script>
@@ -52,44 +52,31 @@ export default {
       modal: false,
       states: ["Florida", "Alabama", "Texas"],
       filteredStates: [],
-
-      currentProduct:"",
-      products: [],
-      product: {
-        name: null,
-        description: null
-      },
-      filteredProducts: []
-    };
-  },
-  firestore() {
-    return {
-      products: db.collection("products")
-    };
+ 
+    }
   },
   mounted() {
-    this.setProduct();
-    if (this.currentProduct.length == 0) {
-      this.filteredProducts = this.currentProduct;
+    this.filterStates();
+    if (this.state.length == 0) {
+      this.filteredStates = this.states;
     }
   },
   methods: {
-    filterProducts() {
-      this.filteredProducts = this.products.filter(currentProduct => {
-        // console.log(currentProduct.description)
-        
-        return currentProduct.name.toLowerCase().indexOf(this.currentProduct.toLowerCase()) != -1
-        // return currentProduct.description.toLowerCase().indexOf(this.currentProduct.toLowerCase()) != -1 
+    filterStates() {
+      this.filteredStates = this.states.filter(state => {
+        return state.toLowerCase().startsWith(this.state.toLowerCase());
       });
     },
-    setProduct(currentProduct) {
-      this.currentProduct = currentProduct;
+
+    setState(state) {
+      this.state = state;
       this.modal = false;
-    },    
+    },
     watch: {
-      product() {
-        this.filteredProducts();
-      }
+      state() {
+        this.filteredStates();
+      },
+      
     }
   }
 };

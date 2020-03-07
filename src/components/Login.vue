@@ -138,15 +138,40 @@ export default {
     return {
       name: null,
       email: null,
-      password: null
+      password: null,
+      role: null
     };
   },
   methods: {
     login() {
       fb.auth()
         .signInWithEmailAndPassword(this.email, this.password)
-        .then(() => {
+        .then(user => {
           $("#login").modal("hide");
+
+          var role = "";
+          let userRef = db
+            .collection("profiles")
+            .doc(user.user.uid)
+            .get()
+            .then(doc => {
+              if (!doc.exists) {
+                console.log("No such document!");
+              } else {
+                //console.log("Role :", doc.data().role);
+                role = doc.data().role;
+                //console.log("+>", role);
+                if (role == "user") {
+                  console.log("go to user");
+                } else if (role == "admid") {
+                  console.log("go to admin");
+                }
+              }
+            })
+            .catch(err => {
+              console.log("Error getting document", err);
+            });
+
           this.$router.replace("admin");
         })
         .catch(function(error) {
@@ -161,13 +186,14 @@ export default {
         .createUserWithEmailAndPassword(this.email, this.password)
         .then(user => {
           $("#login").modal("hide");
-           //console.log(user.user.uid);
+          //console.log(user.user.uid);
 
           // Create our initial doc
           db.collection("profiles")
             .doc(user.user.uid)
             .set({
-              name: this.name
+              name: this.name,
+              role: "user"
             })
             .then(() => {
               console.log(this.name + " writtent!");
@@ -176,7 +202,6 @@ export default {
               console.error("Error eriting doc", error);
             });
 
-          
           this.$router.replace("admin");
         })
         .catch(function(error) {
@@ -196,14 +221,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss"></style>
 
-
-// Update the doc without using dot notation.
-          // Notice the map value for favorites.
-          // db.collection("users").doc("name").update({
-          //     favorites: {
-          //       food: "Ice Cream"
-          //     }
-          //   })
-          //   .then(function() {
-          //     console.log("Frank food updated");
-          //   });
+// Update the doc without using dot notation. // Notice the map value for
+favorites. // db.collection("users").doc("name").update({ // favorites: { //
+food: "Ice Cream" // } // }) // .then(function() { // console.log("Frank food
+updated"); // });

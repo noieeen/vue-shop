@@ -18,17 +18,18 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <router-link to="/" class="nav-link" href="#">Home</router-link>
+            <router-link to="/user/products" class="nav-link" href="#">Products</router-link>
+          </li>   
+          <li class="nav-item">
+            <router-link to="/user/profile" class="nav-link" href="#">Profile</router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/products" class="nav-link" href="#">Products</router-link>
+            <router-link to="/user/editproducts" class="nav-link" href="#">Edit Products</router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/about" class="nav-link" href="#">About</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link to="/contactus" class="nav-link" href="#">Contact Us</router-link>
-          </li>
+            <router-link to="/user/checkout" class="nav-link" href="#">Checkout</router-link>
+          </li>         
+            
         </ul>
         <form class="form-inline my-2 my-lg-0">
           <search-component/>
@@ -56,7 +57,7 @@
 import SearchComponent from './SearchComponent3'
 
 export default {
-  name: "Navbar",
+  name: "NavbarUser",
   props: {
     msg: String
   },

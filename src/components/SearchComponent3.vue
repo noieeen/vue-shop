@@ -1,10 +1,21 @@
 <template>
-  <div class="flex flex-col items-center">
-    <!--absolute-->
-    <div class="inset-0 z-0" @click="modal = false"></div>
-    <div class="form-group has-search">
-      <span class="fa fa-search form-control-feedback"></span>
-      <input
+  <div>
+    <!--absolute  v-model="value  :custom-label="name""-->
+    <!-- <div class="inset-0 z-0" @click="modal = false"></div> -->
+    <multiselect
+      
+      :options="products"
+      
+      @select="goToProduct"
+      placeholder="Search . . .     "
+      label="name"
+      track-by="name"
+      class="multiselect-container multiselect"
+    ></multiselect>
+
+    <!-- <div class="form-group has-search"> -->
+    <!-- <span class="fa fa-search form-control-feedback"></span> -->
+    <!-- <input
         type="text"
         class="form-control"
         autocomplete="off"
@@ -12,8 +23,8 @@
         @input="filterProducts"
         @focus="modal = true"
         placeholder="  Search"
-      />
-    </div>
+    />-->
+    <!-- </div> -->
     <!-- <div v-if="filteredStates && modal" class="z-10">
       <ul class="w-48 bg-gray-700 text-white">
         <li
@@ -25,7 +36,7 @@
           
         </li>
       </ul>
-    </div> -->
+    </div>-->
     <!-- <div v-if="filteredProducts && modal" class="z-10">
       <ul class="w-48 bg-gray-700 text-white">
         <li
@@ -36,16 +47,21 @@
           {{ product.name }}
         </li>
       </ul>
-    </div> -->
+    </div>-->
   </div>
 </template>
 <script>
 import { db } from "../firebase";
+// import multiselect from "vue-multiselect"
+import Multiselect from "vue-multiselect";
+
+// Vue.component('multiselect', Multiselect)
 
 export default {
   props: {
     msg: String
   },
+  components: { Multiselect },
   data() {
     return {
       state: "",
@@ -53,7 +69,7 @@ export default {
       states: ["Florida", "Alabama", "Texas"],
       filteredStates: [],
 
-      currentProduct:"",
+      currentProduct: "",
       products: [],
       product: {
         name: null,
@@ -67,33 +83,41 @@ export default {
       products: db.collection("products")
     };
   },
-  mounted() {
-    this.setProduct();
-    if (this.currentProduct.length == 0) {
-      this.filteredProducts = this.currentProduct;
-    }
-  },
+  // mounted() {
+  //   this.setProduct();
+  //   if (this.currentProduct.length == 0) {
+  //     this.filteredProducts = this.currentProduct;
+  //   }
+  // },
   methods: {
     filterProducts() {
       this.filteredProducts = this.products.filter(currentProduct => {
         // console.log(currentProduct.description)
-        
-        return currentProduct.name.toLowerCase().indexOf(this.currentProduct.toLowerCase()) != -1
-        // return currentProduct.description.toLowerCase().indexOf(this.currentProduct.toLowerCase()) != -1 
+
+        return (
+          currentProduct.name
+            .toLowerCase()
+            .indexOf(this.currentProduct.toLowerCase()) != -1
+        );
+        // return currentProduct.description.toLowerCase().indexOf(this.currentProduct.toLowerCase()) != -1
       });
     },
     setProduct(currentProduct) {
       this.currentProduct = currentProduct;
       this.modal = false;
-    },    
-    watch: {
-      product() {
-        this.filteredProducts();
-      }
-    }
+    },
+    goToProduct(selectedOption) {
+      console.log(selectedOption);
+    },
+    // watch: {
+    //   product() {
+    //     this.filteredProducts();
+    //   }
+    // }
   }
 };
 </script>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style>
 .has-search .form-control {
   padding-left: 2.375rem;
@@ -108,6 +132,9 @@ export default {
   text-align: center;
   pointer-events: none;
   color: #aaa;
+}
+.multiselect-container {
+  width: 100% !important;
 }
 </style>
 

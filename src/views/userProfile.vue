@@ -516,7 +516,7 @@ import { VueEditor } from "vue2-editor";
 import { fb, db } from "../firebase";
 
 export default {
-  name: "profile",
+  name: "userProfile",
   components: {
     VueEditor
   },
