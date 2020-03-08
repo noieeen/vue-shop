@@ -29,14 +29,14 @@ export default {
       var body = [];
 
       for (let i in item) {
-        body.push([item[i].productName, item[i].productQuantity, "price"]);
+        body.push([item[i].productName, item[i].productQuantity, item[i].productPrice]);
       }
 
       var doc = new jsPDF();
       doc.setFontSize(20);
       doc.setFont("helvetica");
       doc.setFontType("bold");
-      doc.text("NHAMHA SHOP", 20, 35);
+      doc.text("PRINTER SHOP", 20, 35);
 
       doc.setFontSize(12);
       doc.setFont("default");

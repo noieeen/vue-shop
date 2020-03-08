@@ -12,9 +12,10 @@ import P_Detail from "./views/P_Detail.vue";
 
 
 import User from "./views/User.vue";
-import EditProducts from "./views/Admin.vue";
+//import EditProducts from "./views/Admin.vue";
 import userProfile from "./views/userProfile.vue";
-
+import userProducts from "./views/userProducts.vue";
+import userEditProducts from "./views/userEditProducts.vue";
 
 import { fb } from "./firebase";
 require("firebase/auth");
@@ -73,13 +74,19 @@ const router = new Router({
         {
           path: "editproducts",
           name: "editproducts",
-          component: EditProducts
+          component: userEditProducts
         },
         // {
         //   path: "Checkout",
         //   name: "Checkout",
         //   component: Checkout
         // },
+        {
+          path: "products",
+          name: "products",
+          component: userProducts
+        },
+        
         
       ]
     },

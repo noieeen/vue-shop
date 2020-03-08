@@ -48,6 +48,7 @@
               <li>
                 <router-link to="/admin/overview">
                   <i class="fas fa-home"></i>
+                  
                   <span class="menu-text">Overview</span>
                 </router-link>
               </li>
@@ -249,11 +250,13 @@
           <div class="dropdown">
             <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fa fa-envelope"></i>
-              <span class="badge badge-pill badge-success notification">7</span>
+              <span class="badge badge-pill badge-success notification">10</span>
             </a>
+         
             <div class="dropdown-menu messages" aria-labelledby="dropdownMenuMessage">
               <div class="messages-header">
                 <i class="fa fa-envelope"></i>
+                
                 Messages
               </div>
               <div class="dropdown-divider"></div>
@@ -388,6 +391,7 @@ export default {
         .catch(error => {
           console.log(error);
         });
+       
     }
   },
   created() {

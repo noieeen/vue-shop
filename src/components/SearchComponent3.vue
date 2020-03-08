@@ -64,9 +64,9 @@ export default {
   components: { Multiselect },
   data() {
     return {
-      state: "",
+      // state: "",
       modal: false,
-      states: ["Florida", "Alabama", "Texas"],
+      //states: ["Florida", "Alabama", "Texas"],
       filteredStates: [],
 
       currentProduct: "",
@@ -110,12 +110,10 @@ export default {
       let p = selectedOption.name;
       return this.$router.replace({
         name: "P_Detail",
-        params: { id: p, name: p,
-        description:selectedOption.description }
+        params: { id: p, name: p, description: selectedOption.description }
       });
-    
+
       //console.log(selectedOption.description)
-      
     }
     // watch: {
     //   product() {

@@ -1,8 +1,8 @@
 <template>
   <div class="hello">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
-        <router-link to="/" class="navbar-brand" href="#">Vue Shop</router-link>
+        <div class="navbar-brand" href="#">Vue Shop</div>
       
       <button
         class="navbar-toggler"
@@ -17,12 +17,13 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
+           <li class="nav-item">
+            <router-link to="/user/profile" class="nav-link" href="#">Profile</router-link>
+          </li>
           <li class="nav-item">
             <router-link to="/user/products" class="nav-link" href="#">Products</router-link>
           </li>   
-          <li class="nav-item">
-            <router-link to="/user/profile" class="nav-link" href="#">Profile</router-link>
-          </li>
+         
           <li class="nav-item">
             <router-link to="/user/editproducts" class="nav-link" href="#">Edit Products</router-link>
           </li>
@@ -34,7 +35,7 @@
         <form class="form-inline my-2 my-lg-0">
           <a 
           class="mr-5">
-            <search-component/>
+            <!-- <search-component/> -->
           </a>
           
       

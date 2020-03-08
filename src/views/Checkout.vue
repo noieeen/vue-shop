@@ -12,7 +12,7 @@
                 <h5 class="mt-0">
                   {{item.productName}}
                   <span
-                    class="float-right mr-5"
+                    class="float-right mr-5 cursor-pointer"
                     @click="$store.commit('removeFromCart',item)"
                   >X</span>
                 </h5>
@@ -20,7 +20,8 @@
                   {{item.productPrice | currency("THB", 2, {
                   symbolOnLeft: false,
                   spaceBetweenAmountAndSymbol: true
-                  })}}
+                  })
+                  }}
                 </p>
                 <p class="mt-0">Quantity : {{item.productQuantity }}</p>
               </div>
@@ -28,7 +29,11 @@
           </ul>
         </div>
         <div class="col-md-3">
-          <p>Total Price : {{ this.$store.getters.totalPrice | currency }}</p>
+          <p>Total Price : {{ this.$store.getters.totalPrice | currency("THB", 2, {
+                  symbolOnLeft: false,
+                  spaceBetweenAmountAndSymbol: true
+                  }) 
+                  }}</p>
           <button class="btn custom-btn btn-outline-info m-2">Checkout Order</button>
         </div>
       </div>

@@ -161,6 +161,10 @@ export default {
                 //console.log("Role :", doc.data().role);
                 role = doc.data().role;
                 //console.log("+>", role);
+                let name = doc.data().name
+                // console.log('user name: ',name)
+                //console.log('email',{name:name,email:this.email,role:role})
+                this.$store.commit('currentUser',{name:name,email:this.email,role:role})
                 if (role == "user") {
                   console.log("go to user");
                   this.$router.replace("user");
@@ -182,6 +186,7 @@ export default {
           alert("Oops.  " + errorMSG);
           //console.log("Error creating new user:", error);
         });
+               
     },
     register() {
       fb.auth()
@@ -195,6 +200,7 @@ export default {
             .doc(user.user.uid)
             .set({
               name: this.name,
+              email:this.email,
               role: "user"
             })
             .then(() => {
