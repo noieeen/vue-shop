@@ -1,12 +1,12 @@
 <template>
-  <div class="products">
+  <div class="">
     <Navbar></Navbar>
 
     <products-list></products-list>
 
-    <div class="container h-100">
+    <!-- <div class="container h-100">
       <div class="row p-5 h-100 justify-content-center align-items-center"></div>
-    </div>
+    </div> -->
 
     <login></login>
     <mini-cart></mini-cart>
