@@ -3,11 +3,9 @@
     <!--absolute  v-model="value  :custom-label="name""-->
     <!-- <div class="inset-0 z-0" @click="modal = false"></div> -->
     <multiselect
-      
       :options="products"
-      
       @select="goToProduct"
-      placeholder="Search . . .     "
+      placeholder="🔍 S e a r c h . . ."
       label="name"
       track-by="name"
       class="multiselect-container multiselect custom-multiselect mr-md-5"
@@ -54,7 +52,9 @@
 import { db } from "../firebase";
 // import multiselect from "vue-multiselect"
 import Multiselect from "vue-multiselect";
+import P_DetailVue from "../views/P_Detail.vue";
 
+import VueRouter from "vue-router";
 // Vue.component('multiselect', Multiselect)
 
 export default {
@@ -107,8 +107,16 @@ export default {
       this.modal = false;
     },
     goToProduct(selectedOption) {
-      console.log(selectedOption);
-    },
+      let p = selectedOption.name;
+      return this.$router.replace({
+        name: "P_Detail",
+        params: { id: p, name: p,
+        description:selectedOption.description }
+      });
+    
+      //console.log(selectedOption.description)
+      
+    }
     // watch: {
     //   product() {
     //     this.filteredProducts();
