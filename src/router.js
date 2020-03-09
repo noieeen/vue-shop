@@ -15,7 +15,9 @@ import User from "./views/User.vue";
 //import EditProducts from "./views/Admin.vue";
 import userProfile from "./views/userProfile.vue";
 import userProducts from "./views/userProducts.vue";
-import userEditProducts from "./views/userEditProducts.vue";
+import userEditOrders from "./views/userEditOrders.vue";
+import userCheckout from "./views/userCheckout.vue";
+
 
 import { fb } from "./firebase";
 require("firebase/auth");
@@ -63,7 +65,7 @@ const router = new Router({
       path: "/user",
       name: "user",
       component: User,
-      //meta: { requiresAuth: true },
+      meta: { requiresAuth: true },
 
       children: [
         {
@@ -72,9 +74,9 @@ const router = new Router({
           component: userProfile
         },
         {
-          path: "editproducts",
-          name: "editproducts",
-          component: userEditProducts
+          path: "editorders",
+          name: "editorders",
+          component: userEditOrders
         },
         // {
         //   path: "Checkout",
@@ -85,6 +87,11 @@ const router = new Router({
           path: "products",
           name: "products",
           component: userProducts
+        },
+        {
+          path: "checkout",
+          name: "checkout",
+          component: userCheckout
         },
         
         

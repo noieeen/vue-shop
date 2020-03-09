@@ -25,7 +25,7 @@
           </li>   
          
           <li class="nav-item">
-            <router-link to="/user/editproducts" class="nav-link" href="#">Edit Products</router-link>
+            <router-link to="/user/editorders" class="nav-link" href="#">Edit Orders</router-link>
           </li>
           <li class="nav-item">
             <router-link to="/user/checkout" class="nav-link" href="#">Checkout</router-link>

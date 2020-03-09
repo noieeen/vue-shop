@@ -1,6 +1,6 @@
 <template>
-  <div class="products">
-    <div class="container">
+  <div class="">
+    <div class="container mt-5">
       <div class="intro h-100">
         <div class="row h-100 align-items-center">
           <div class="col-md-6 ml-3">
@@ -80,7 +80,7 @@
                   <div class="form-group">
                     <label>Phone Number</label>
                     <input
-                      type="text"
+                      type="tel"
                       v-model="profile.phone"
                       placeholder="Phone Number"
                       class="form-control"
@@ -93,7 +93,7 @@
                     <label>Company Name</label>
                     <input
                       type="text"
-                      v-model="profile.phone"
+                      v-model="profile.comName"
                       placeholder="Company Name"
                       class="form-control"
                     />
@@ -129,7 +129,7 @@
                   <div class="form-group">
                     <label>Company Email</label>
                     <input
-                      type="text"
+                      type="email"
                       v-model="profile.comEmail"
                       placeholder="Company Email"
                       class="form-control"
@@ -450,7 +450,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <input
-                      type="text"
+                      type="email"
                       v-model="account.email"
                       placeholder="Email address"
                       class="form-control"
@@ -530,6 +530,7 @@ export default {
         fname: null,
         lname: null,
         phone: null,
+        comName:null,
         comAddress: null,
         fax:null,
         comEmail:null,
@@ -583,6 +584,7 @@ export default {
         fname: this.profile.fname,
         lname: this.profile.lname,
         phone: this.profile.phone,
+        comName:this.profile.comName,
         comAddress: this.profile.comAddress,
         fax: this.profile.fax,
         comEmail: this.profile.comEmail,

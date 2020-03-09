@@ -3,7 +3,7 @@
     <div class="container mt-4">
       <div class="row">
         <div class="col-md-9">
-          <h4 class="py-4">Checkout</h4>
+          <h4 class="py-4">Edit Order</h4>
           <ul>
             <li v-for="item in this.$store.state.cart" class="media">
               <img :src="item.productImage" width="80px" class="align-self-center mr-5" alt />
