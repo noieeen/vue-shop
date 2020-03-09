@@ -18,8 +18,8 @@
                   <!-- <button class=" cursor-pointer">X</button> -->
                   <div class="float-right py-1 mr-5">
                     <div class="btn-group-vertical">
-                      <button class="btn btn-info custom-btn" @click="increaseProduct">+</button>
-                      <button class="btn btn-danger custom-btn" @click="reducrProduct">-</button>
+                      <button class="btn btn-info custom-btn" @click="increaseProduct(item)">+</button>
+                      <button class="btn btn-danger custom-btn" @click="reducrProduct(item)">-</button>
                     </div>
                   </div>
                 </h5>
@@ -52,7 +52,7 @@
         </div>
       </div>
       <div class="d-flax float-right p-5">
-        <exportPDF></exportPDF>
+        <router-link to="/user/checkout" tag="button" class="btn btn-primary">To Checkout</router-link>
       </div>
     </div>
   </div>
@@ -70,11 +70,15 @@ export default {
     }
   },
   methods: {
-    increaseProduct() {
+    increaseProduct(item) {
       //this.$store
-      console.log(this.productQuantity)
+      this.$store.commit('addToCart',item)
+      console.log(item)
     },
-    reducrProduct() {}
+    reducrProduct(item) {
+      this.$store.commit('reduceFromCart',item)
+      
+    }
   }
 };
 </script>

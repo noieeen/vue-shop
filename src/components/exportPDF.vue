@@ -85,8 +85,10 @@ export default {
       doc.text("Date Order : ", 118, 50);
       doc.text(date, 140, 50);
       doc.autoTable({ head: head, body: body, margin: { top: 60 } });
+      let finalY = doc.previousAutoTable.finalY;
+      // let finalX = doc.previousAutoTable.finalX;
 
-      doc.text("Total : " + this.totalPrice, 20, 150);
+      doc.text("Total : " + this.totalPrice, 20, finalY +10);
       doc.line(200, 200, 150, 200);
       doc.text("Signature", 165, 210);
       //doc.text(this.item.productName,10,150);

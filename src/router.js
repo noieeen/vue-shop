@@ -6,6 +6,7 @@ import Overview from "./views/Overview.vue";
 import Products from "./views/Products.vue";
 import Orders from "./views/Orders.vue";
 import Profile from "./views/Profile.vue";
+import Customers from "./views/Customers.vue"
 import Contactus from "./views/ContactUs.vue";
 //import Checkout from "./views/Checkout.vue";
 import P_Detail from "./views/P_Detail.vue";
@@ -39,6 +40,11 @@ const router = new Router({
       component: Admin,
       meta: { requiresAuth: true },
       children: [
+        {
+          path:"customers",
+          name: "customers",
+          component: Customers
+        },
         {
           path: "overview",
           name: "overview",

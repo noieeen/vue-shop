@@ -26,7 +26,9 @@
                 </h5>
               </div>
               <h5 class="card-title">DETAILS</h5>
-              <p class="card-text" v-html="product.description" v-model="text" :maxlength="20"></p>
+            <div class=" text ellipsis ">
+              <p class="card-text text-concat" v-html="product.description" v-model="text" :maxlength="20"></p>
+              </div>
               <hr />
               <add-to-cart
                 :image="getImage(product.images)"
@@ -99,5 +101,28 @@ export default {
   margin-top: 7rem;
   background: #f2f2f2;
   padding-bottom: 3rem;
+}
+.text {
+  position: relative;
+  font-size: 14px;
+  color: black;
+  width: 250px; /* Could be anything you like. */
+}
+
+.text-concat {
+  position: relative;
+  display: inline-block;
+  word-wrap: break-word;
+  overflow: hidden;
+  max-height: 3em; /* (Number of lines you want visible) * (line-height) */
+  line-height: 1em;
+  text-align:justify;
+}
+
+.text.ellipsis::after {
+  //content: " . . .";
+  position: absolute;
+  right: -12px; 
+  bottom: 4px;
 }
 </style>

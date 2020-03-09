@@ -1,11 +1,11 @@
 <template>
   <div class="user">
-    <Navbar/>
-    <div class="page-wrapper default-theme sidebar-bg bg1 toggled">
-  
+    <Navbar />
+    <div class=" page-wrapper default-theme sidebar-bg bg1 toggled ">
       <!-- page-content  -->
-      <main class="">
+      <main >
         <router-view></router-view>
+     
       </main>
       <!-- page-content" -->
     </div>
@@ -17,7 +17,7 @@
 // @ is an alias to /src
 
 import Hero from "@/components/Hero.vue";
-import { fb , db } from "../firebase";
+import { fb, db } from "../firebase";
 import Navbar from "@/components/NavbarUser.vue";
 export default {
   name: "user",
@@ -60,17 +60,18 @@ export default {
         .catch(error => {
           console.log(error);
         });
-       
     }
   },
   created() {
     var user = fb.auth().currentUser;
-   //var profile = db.collection("profiles").doc(user.uid)
+    //var profile = db.collection("profiles").doc(user.uid)
     this.email = user.email;
-    this.Admin = 'ยังไม่ได้'//profile;
+    this.Admin = "ยังไม่ได้"; //profile;
     //console.log(profile);
   }
 };
 </script>
 
-<style lang="stylus"></style>
+<style >
+
+</style>

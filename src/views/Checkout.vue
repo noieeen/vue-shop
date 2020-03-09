@@ -29,32 +29,29 @@
           </ul>
         </div>
         <div class="col-md-3">
-          <p>Total Price : {{ this.$store.getters.totalPrice | currency("THB", 2, {
-                  symbolOnLeft: false,
-                  spaceBetweenAmountAndSymbol: true
-                  }) 
-                  }}</p>
+          <p>
+            Total Price : {{ this.$store.getters.totalPrice | currency("THB", 2, {
+            symbolOnLeft: false,
+            spaceBetweenAmountAndSymbol: true
+            })
+            }}
+          </p>
           <button class="btn custom-btn btn-outline-info m-2">Checkout Order</button>
         </div>
       </div>
       <div class="d-flax float-right p-5">
-        <exportPDF>
-          
-        </exportPDF>
+        <exportPDF></exportPDF>
       </div>
-      
     </div>
-    
   </div>
 </template>
 
 <script>
-
-import exportPDF from '@/components/exportPDF.vue'
+import exportPDF from "@/components/exportPDF.vue";
 
 export default {
-  components:{
-    exportPDF,
+  components: {
+    exportPDF
   }
-}
+};
 </script>

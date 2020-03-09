@@ -2,7 +2,7 @@
   <div class="hello">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
-        <div class="navbar-brand" href="#">Vue Shop</div>
+        <div class="navbar-brand" href="#">COOLpRINTER</div>
       
       <button
         class="navbar-toggler"

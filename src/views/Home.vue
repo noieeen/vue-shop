@@ -22,7 +22,7 @@
         </div>
       </div>
     </div>
-    <Products />
+    <!-- <Products /> -->
     <!-- <Productslist /> -->
     <login></login>
     <mini-cart></mini-cart>

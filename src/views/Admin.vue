@@ -45,6 +45,13 @@
               <li class="header-menu">
                 <span>General</span>
               </li>
+               <li>
+                <router-link to="/admin/customers">
+                  <i class="fas fa-person-booth"></i>
+                  
+                  <span class="menu-text">Customers</span>
+                </router-link>
+              </li>
               <li>
                 <router-link to="/admin/overview">
                   <i class="fas fa-home"></i>
@@ -398,7 +405,7 @@ export default {
     var user = fb.auth().currentUser;
    //var profile = db.collection("profiles").doc(user.uid)
     this.email = user.email;
-    this.Admin = 'ยังไม่ได้'//profile;
+    this.Admin = 'Admin'//profile;
     //console.log(profile);
   }
 };
