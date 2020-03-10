@@ -1,7 +1,8 @@
 <template>
   <div class="" id="products">
     <div class="container " style="background-color: #fff;">
-      <h1 class="text-center p-5">Our Products</h1>
+      
+      <h1 class="text-center p-5">🖨️ COOLpRINTER Products 🖨️</h1>
       <div class="row">
         <div class="col-md-4" v-for="product in products">
           <div class="card product-item">
@@ -30,24 +31,26 @@
               <p class="card-text text-concat" v-html="product.description" v-model="text" :maxlength="20"></p>
               </div>
               <hr />
+              <div class="row justify-evenly">
               <add-to-cart
                 :image="getImage(product.images)"
                 :p-id="product['.key']"
                 :price="product.price"
                 :name="product.name"
               ></add-to-cart>
-            </div>
-          </div>
-          <hr />
-          <router-link
+              <router-link
             :to="{name : 'P_Detail',params:
           {id:product.name,
           name:product.name,
           images:getImage(product.images),
           description:product.description}}"
             tag="button"
-            class="btn btn-outline-success"
-          >P detail</router-link>
+            class="btn btn-outline-primary"
+          >More Detail</router-link></div>
+            </div>
+          </div>
+          <hr />
+          
         </div>
       </div>
     </div>

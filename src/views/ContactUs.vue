@@ -1,5 +1,6 @@
 <template>
   <div class="contactus">
+    <Intro/>
     <Navbar></Navbar>
         <div class="container h-100">
              <div class="row p-5 h-100 justify-content-center align-items-center">
@@ -7,17 +8,22 @@
       </div>
       <div class="row p-5 h-100 justify-content-center align-items-center">
         <div class="col-md-6">
-          <img src="/img/svg/product.svg" alt width="400" />
+          <img src="https://sv1.picz.in.th/images/2020/03/10/Q02AJW.png" alt="Q02AJW.png" width="700">
         </div>
         <div class="col-md-6">
-          <h3>Learn More About us</h3>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur
-            quaerat voluptate iusto? Nihil voluptas vitae veritatis magnam
-            reprehenderit, reiciendis ex? Libero quasi natus veniam voluptatum,
-            voluptas exercitationem ratione consectetur et!
-          </p>
-          <button class="btn custom-btn btn-outline-primary mr-4">Browse Products</button>
+          
+          <pre style="font-size:20px">
+
+
+        Email : darin_ploy@hotmail.com
+
+        Tel : (+66)83-030-3837
+            
+        Address : 6 Rajamankha Nai Rd.,
+                  Amphoe Muang, Nakhon Pathom
+                  73000
+          </pre>
+          
         </div>
       </div>
     </div>
@@ -25,10 +31,13 @@
 </template>
 
 <script>
+import Intro from "@/components/Intro.vue";
 export default {
   name: "ContactUs",
   props: {
     msg: String
+  },components:{
+    Intro
   }
 };
 </script>

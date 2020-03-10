@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1 class="mt-3 ml-2">user checkout</h1>
+    <h1 class="mt-3 ml-2">Checkout</h1>
     <div class="m-5">
       <table class="table">
         <thead>
@@ -17,8 +17,18 @@
             <th>{{ index + 1 }}</th>
             <td>{{ i.productName }}</td>
             <td>X {{ i.productQuantity }}</td>
-            <td>{{ i.productPrice }}</td>
-            <td>{{ i.productPrice * i.productQuantity }}</td>
+            <td>
+              {{ i.productPrice | currency("", 2, {
+              symbolOnLeft: false,
+              spaceBetweenAmountAndSymbol: true
+              })}}
+            </td>
+            <td>
+              {{ i.productPrice * i.productQuantity | currency("", 2, {
+              symbolOnLeft: false,
+              spaceBetweenAmountAndSymbol: true
+              })}}
+            </td>
           </tr>
         </tbody>
         <thead>
@@ -27,7 +37,12 @@
             <th></th>
             <th></th>
             <th>Total Price</th>
-            <th>{{totalPrice}}</th>
+            <th>
+              {{totalPrice | currency("THB", 2, {
+              symbolOnLeft: false,
+              spaceBetweenAmountAndSymbol: true
+              })}}
+            </th>
           </tr>
         </thead>
       </table>
@@ -47,7 +62,7 @@ export default {
     exportPDF
   },
   data() {
-    return {      
+    return {
       item: this.$store.state.cart,
       totalPrice: this.$store.getters.totalPrice,
 
@@ -66,24 +81,15 @@ export default {
     };
   },
   methods: {
-   
-    confirm() {    
-      
+    confirm() {
       this.$firestore.orders.add(this.order);
-      this.$store.commit('resetCart');
+      this.$store.commit("resetCart");
       this.item = this.$store.state.cart;
-      this.totalPrice = this.$store.getters.totalPrice
+      this.totalPrice = this.$store.getters.totalPrice;
 
       // console.log("email", this.order.currentUser.email);
       // console.log("item", Date.now());
-     
-  
-  
     }
-  },
-  
-  
+  }
 };
-
-
 </script>

@@ -1,5 +1,6 @@
 <template>
   <div class="">
+    <Intro/>
     <Navbar></Navbar>
 
     <products-list></products-list>
@@ -18,12 +19,13 @@ import Hero from "@/components/Hero.vue";
 import Products from "@/sections/Products.vue";
 
 import Login from "@/components/Login.vue";
+import Intro from "@/components/Intro.vue";
 
 export default {
   name: "products",
   components: {
     Products,
-    Login
+    Login,Intro
   }
 };
 </script>

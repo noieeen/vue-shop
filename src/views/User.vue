@@ -1,5 +1,6 @@
 <template>
   <div class="user">
+    
     <Navbar />
     <div class=" page-wrapper default-theme sidebar-bg bg1 toggled ">
       <!-- page-content  -->
@@ -19,6 +20,9 @@
 import Hero from "@/components/Hero.vue";
 import { fb, db } from "../firebase";
 import Navbar from "@/components/NavbarUser.vue";
+
+// import Intro from "@/components/Intro.vue";
+
 export default {
   name: "user",
   data() {

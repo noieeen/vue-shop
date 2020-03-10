@@ -16,7 +16,7 @@
                   >X</span>
 
                   <!-- <button class=" cursor-pointer">X</button> -->
-                  <div class="float-right py-1 mr-5">
+                  <div class="float-right py-1 mr-5 ml-1">
                     <div class="btn-group-vertical">
                       <button class="btn btn-info custom-btn" @click="increaseProduct(item)">+</button>
                       <button class="btn btn-danger custom-btn" @click="reducrProduct(item)">-</button>
@@ -48,11 +48,15 @@
             })
             }}
           </p>
-          <button class="btn custom-btn btn-outline-info m-2">Checkout Order</button>
+          
+          <router-link to="/user/checkout" tag="button" class="btn custom-btn btn-outline-info m-2">Checkout Order</router-link>
         </div>
       </div>
       <div class="d-flax float-right p-5">
-        <router-link to="/user/checkout" tag="button" class="btn btn-primary">To Checkout</router-link>
+        <div class="btn btn-outline-danger" @click="clear">Clear Cart</div>
+        <!-- <router-link to="/user/checkout" tag="button" class="btn btn-primary">To Checkout</router-link> -->
+      <router-link to="/user/products" tag="button" class="btn custom-btn btn-success m-2">Back To Products</router-link>
+
       </div>
     </div>
   </div>
@@ -78,6 +82,9 @@ export default {
     reducrProduct(item) {
       this.$store.commit('reduceFromCart',item)
       
+    },
+    clear(){
+      this.$store.commit('resetCart')
     }
   }
 };

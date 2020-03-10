@@ -1,9 +1,11 @@
 <template>
   <div class="hello">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg transparent navbar-inverse">
       <div class="container">
         <router-link to="/" class="navbar-brand" href="#">COOLpRINTER</router-link>
       
+
+
       <button
         class="navbar-toggler"
         type="button"
@@ -33,7 +35,7 @@
         <form class="form-inline my-2 my-lg-0">
           <search-component/>
           <a
-            class="btn btn-outline-primary my-2 my-sm-2"
+            class="btn btn-warning my-2 my-sm-2 ml-2"
             type="submit"
             data-toggle="modal"
             data-target="#login"
@@ -75,10 +77,20 @@ export default {
     background-color: #fff !important;
   }
 }
-.fa-cart-plus{
+// .fa-cart-plus{
+//   color: #fff;
+// }
+.btn-warning{
   color: #fff;
 }
-.btn-outline-primary{
-  color: #fff;
+ .navbar.transparent.navbar-inverse .navbar-inner {
+    border-width: 0px;
+    -webkit-box-shadow: 0px 0px;
+    box-shadow: 0px 0px;
+    background-color: rgba(0,0,0,0.0);
+    background-image: -webkit-gradient(linear, 50.00% 0.00%, 50.00% 100.00%, color-stop( 0% , rgba(0,0,0,0.00)),color-stop( 100% , rgba(0,0,0,0.00)));
+    background-image: -webkit-linear-gradient(270deg,rgba(0,0,0,0.00) 0%,rgba(0,0,0,0.00) 100%);
+    background-image: linear-gradient(180deg,rgba(0,0,0,0.00) 0%,rgba(0,0,0,0.00) 100%);
 }
+
 </style>
