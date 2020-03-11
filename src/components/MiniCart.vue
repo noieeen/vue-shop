@@ -59,7 +59,7 @@ export default {
   methods: {
     checkout() {
       $("#miniCart").modal("hide");
-      this.$router.push("/checkout");
+      this.$router.push("/user/checkout");
     }
   }
 };

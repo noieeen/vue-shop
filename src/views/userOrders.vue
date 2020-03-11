@@ -1,15 +1,16 @@
 <template>
   <div class="container">
-    <h1 class="mt-3 ml-2">Checkout</h1>
+    <h1 class="mt-3 ml-2">My Orders</h1>
     <div class="m-5">
       <table class="table">
         <thead>
           <tr>
             <th>#</th>
-            <th>Product Name</th>
-            <th>Quantity</th>
-            <th>Unit Price</th>
+            <th>Invoice</th>
+            <th>Pusrchase On</th>
             <th>Amount</th>
+            <th>Status</th>
+            <th>Upload</th>
           </tr>
         </thead>
         <tbody>
@@ -23,11 +24,10 @@
               spaceBetweenAmountAndSymbol: true
               })}}
             </td>
+            <td><p class="text-warning">Panding</p></td>
             <td>
-              {{ i.productPrice * i.productQuantity | currency("", 2, {
-              symbolOnLeft: false,
-              spaceBetweenAmountAndSymbol: true
-              })}}
+                <button class="btn btn-primary">Upload</button>
+
             </td>
           </tr>
         </tbody>
@@ -46,11 +46,7 @@
           </tr>
         </thead>
       </table>
-    </div>
-    <div class="float-right mr-5 btn-group">
-      <exportPDF></exportPDF>
-      <button class="btn btn-success ml-2" @click="confirm">Comfirm Order</button>
-    </div>
+    </div> 
   </div>
 </template>
 <script>

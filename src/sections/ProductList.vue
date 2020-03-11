@@ -5,11 +5,11 @@
       <h1 class="text-center p-5">🖨️ COOLpRINTER Products 🖨️</h1>
       <div class="row">
         <div class="col-md-4" v-for="product in products">
-          <div class="card product-item">
+          <div class="card product-item m-3">
             <carousel :perPage="1">
               <!--slide-->
               <slide v-for="(image, index) in product.images">
-                <img :src="image" class="card-img-top" alt="..." width="250px" @click="we(product)" />
+                <img :src="image" class="card-img-top" alt="..." width="250px" height="500px" @click="we(product)" />
               </slide>
             </carousel>
 
@@ -49,7 +49,7 @@
           >More Detail</router-link></div>
             </div>
           </div>
-          <hr />
+         
           
         </div>
       </div>

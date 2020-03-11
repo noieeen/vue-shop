@@ -3,61 +3,58 @@
     <center>
       <h1 class="m-3">อีเหี้ย</h1>
     </center>
-    
+
     <div class="row m-2">
       <div class="col">
         <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-          <div class="card-header">ยอดขาย / สัปดาห์</div>
+          <div class="card-header">Total Sale</div>
           <div class="card-body">
             <h5 class="card-title">Primary card title</h5>
             <p class="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
+              THB.
             </p>
           </div>
         </div>
       </div>
       <div class="col">
         <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
-          <div class="card-header">ยอดสั่งซื้อ</div>
+          <div class="card-header">New Orders</div>
           <div class="card-body">
             <h5 class="card-title">Primary card title</h5>
             <p class="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
+              THB.
             </p>
           </div>
         </div>
       </div>
       <div class="col">
         <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
-          <div class="card-header">ยอดสั่งซื้อ</div>
+          <div class="card-header">Customers</div>
           <div class="card-body">
             <h5 class="card-title">Primary card title</h5>
             <p class="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
+              THB.
             </p>
           </div>
         </div>
       </div>
-      
     </div>
 
     <div class="d-flex justify-content-center ">
       <div>
-        <h1 class="m-3">กราฟอีสัส</h1>
-      <mdb-container>
-        <mdb-line-chart
-          :data="lineChartData"
-          :options="lineChartOptions"
-          :width="600"
-          :height="300"
-        ></mdb-line-chart>
-      </mdb-container>
+        <div class="card border-light mb-3" style="max-width: 500rem; max-height:1000rem;">
+        <div class="card-header">Revinue</div>
+          <mdb-container>
+            <mdb-line-chart
+              :data="lineChartData"
+              :options="lineChartOptions"
+              :width="900"
+              :height="400"
+            ></mdb-line-chart>
+          </mdb-container>
+        </div>
       </div>
     </div>
-    
   </div>
 </template>
 

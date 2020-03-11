@@ -18,6 +18,7 @@ import userProfile from "./views/userProfile.vue";
 import userProducts from "./views/userProducts.vue";
 import userEditOrders from "./views/userEditOrders.vue";
 import userCheckout from "./views/userCheckout.vue";
+import userOrders from "./views/userOrders.vue";
 
 
 import { fb } from "./firebase";
@@ -98,6 +99,11 @@ const router = new Router({
           path: "checkout",
           name: "checkout",
           component: userCheckout
+        },
+        {
+          path: "orders",
+          name: "orders",
+          component: userOrders
         },
         
         

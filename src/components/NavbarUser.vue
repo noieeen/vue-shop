@@ -29,7 +29,10 @@
           </li>
           <li class="nav-item">
             <router-link to="/user/checkout" class="nav-link" href="#">Checkout</router-link>
-          </li>         
+          </li>   
+           <li class="nav-item">
+            <router-link to="/user/orders" class="nav-link" href="#">My Orders</router-link>
+          </li>          
             
         </ul>
         <form class="form-inline my-2 my-lg-0">

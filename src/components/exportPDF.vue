@@ -18,15 +18,15 @@ export default {
       item: this.$store.state.cart,
       totalPrice: this.$store.getters.totalPrice,
       profile: {
-        fname: null,
-        lname: null,
-        phone: null,
-        comName: null,
-        comAddress: null,
-        fax: null,
-        comEmail: null,
-        country: null,
-        zipcode: null
+        fname: "",
+        lname: "",
+        phone: "",
+        comName: "",
+        comAddress: "",
+        fax: "",
+        comEmail: "",
+        country: "",
+        zipcode: ""
       }
     };
   },
@@ -65,7 +65,7 @@ export default {
       doc.setFontSize(20);
       doc.setFont("helvetica");
       doc.setFontType("bold");
-      doc.text("PRINTER SHOP", 20, 35);
+      doc.text("COOLpRINTER", 20, 35);
 
       doc.setFontSize(12);
       doc.setFont("default");
@@ -81,7 +81,7 @@ export default {
       doc.text("Company Phone : ", 109, 40);
       doc.text(this.profile.phone, 140, 40);
       doc.text("Order Tag : ", 119, 45);
-      doc.text(this.profile[".key"],140, 45);
+      doc.text('#'+Date.now(),140, 45);
       doc.text("Date Order : ", 118, 50);
       doc.text(date, 140, 50);
       doc.autoTable({ head: head, body: body, margin: { top: 60 } });
@@ -89,8 +89,8 @@ export default {
       // let finalX = doc.previousAutoTable.finalX;
 
       doc.text("Total : " + this.totalPrice, 20, finalY +10);
-      doc.line(200, 200, 150, 200);
-      doc.text("Signature", 165, 210);
+      doc.line(200, finalY +60, 150, finalY +60);
+      doc.text("Signature", 165, finalY +70);
       //doc.text(this.item.productName,10,150);
       doc.save("invoice.pdf");
     }

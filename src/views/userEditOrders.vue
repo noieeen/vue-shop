@@ -53,7 +53,7 @@
         </div>
       </div>
       <div class="d-flax float-right p-5">
-        <div class="btn btn-outline-danger" @click="clear">Clear Cart</div>
+        <div class="btn btn-outline-danger" @click="clear">Clear All</div>
         <!-- <router-link to="/user/checkout" tag="button" class="btn btn-primary">To Checkout</router-link> -->
       <router-link to="/user/products" tag="button" class="btn custom-btn btn-success m-2">Back To Products</router-link>
 
