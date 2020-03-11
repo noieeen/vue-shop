@@ -38,6 +38,8 @@
 import exportPDF from "@/components/exportPDF.vue";
 import { fb,db } from "../firebase";
 
+const timestampToDate = require('timestamp-to-date');
+
 export default {
   components: {
     exportPDF
@@ -64,7 +66,7 @@ export default {
 
   methods: {
     reset() {
-      this.orders = [];
+      this.orders = [];      
     },
     checkOrder() {
       // if (this.user.email == orders.order.email) {
@@ -124,9 +126,14 @@ export default {
             if (orderEmail == this.user.email) {
               //console.log(doc.id, "=>", doc.data().items);
 
+          // var date = new Date(doc.data().time * 1000)
+
+          //           console.log('date',date)
+              let time = timestampToDate(doc.data().time,'dd/mm/yyyy')
+
               this.order.email = orderEmail;
               this.order.invoice = "#" + doc.data().time;
-              this.order.pusrchaseDate = doc.data().time;
+              this.order.pusrchaseDate = time;
               this.order.amount = doc.data().totalPrice;
               this.order.status = doc.data().status;
 
@@ -146,7 +153,7 @@ export default {
         });
 
       console.log(this.orders);
-      reset();
+      this.reset();
     },
     uploadImage(e) {
       if (e.target.files[0]) {
