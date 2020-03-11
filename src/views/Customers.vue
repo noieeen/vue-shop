@@ -248,15 +248,7 @@ export default {
     },
 
     updateProduct(product) {
-      /* ยังแก้ไม่ได้    **ได้แล้ว */
-      //console.log(this.$firestore.profiles.doc(product['.key']));
 
-      //  this.$firestore.profiles.doc(product['.key']).update({  //WORK
-      //   name: "Amrani HoussainNEW",
-      //   github: "@amranidev"
-      //   });
-
-      // const newPr = Object.assign({},this.product);
       this.$firestore.profiles.doc(product[".key"]).update({
         name: this.product.name,
         description: this.product.description,

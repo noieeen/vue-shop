@@ -71,7 +71,8 @@ export default {
         user: this.$store.state.currentUser,
         items: this.$store.state.cart,
         totalPrice: this.$store.getters.totalPrice,
-        time: Date.now()
+        time: Date.now(),
+        status:'Panding'
       }
     };
   },
