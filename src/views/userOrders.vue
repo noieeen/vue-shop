@@ -19,26 +19,44 @@
             <td>{{ i.invoice }}</td>
             <td>{{ i.pusrchaseDate }}</td>
             <td>{{ i.amount | currency("", 2) }}</td>
-            <td><p class="text-warning">Panding</p></td>
+            <td><p class="text-danger font-weight-bold" v-if="i.status == 'Cancel'">{{i.status}}</p>
+              <p class="text-success font-weight-bold" v-if="i.status == 'Success'">{{i.status}}</p>
+              <p class="text-warning font-weight-bold" v-if="i.status == 'Panding'">{{i.status}}</p>
+              <p class="text-primary font-weight-bold" v-if="i.status == 'Upload'">{{i.status}}</p>
+              
+            </td>
             <td>
-                <div class="custom-file">
-                <input type="file" class="custom-file-input" id="validatedCustomFile" required>
-                <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
-                <div class="invalid-feedback">Example invalid custom file feedback</div>
+              <div class="custom-file">
+                <input
+                  type="file"
+                  @change="uploadPdf"
+                  class="custom-file-input"
+                  id="validatedCustomFile"
+                  required
+                />
+                <label class="custom-file-label" for="validatedCustomFile"
+                  >Choose file...</label
+                >
+                <div class="invalid-feedback">
+                  Example invalid custom file feedback
+                </div>
+              </div>
+              <div>
+                <button class="btn btn-success col-md-12 mt-1" @click="cheO(i)" >Upload</button>
               </div>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
-    <button class="btn btn-success " @click="checkOrder">checkOrder</button>
+    
   </div>
 </template>
 <script>
 import exportPDF from "@/components/exportPDF.vue";
-import { fb,db } from "../firebase";
+import { fb, db } from "../firebase";
 
-const timestampToDate = require('timestamp-to-date');
+const timestampToDate = require("timestamp-to-date");
 
 export default {
   components: {
@@ -53,7 +71,8 @@ export default {
         invoice: null,
         pusrchaseDate: null,
         amount: null,
-        status: null
+        status: null,
+        pdf:[]
       }
     };
   },
@@ -62,100 +81,43 @@ export default {
   //     orders: db.collection("orders")
   //   };
   // },
-  order() {},
+  created() {
+    this.checkOrder();
+    
+  },
 
   methods: {
-    reset() {
-      this.orders = [];      
+    cheO(order){
+      console.log(order)
     },
     checkOrder() {
-      // if (this.user.email == orders.order.email) {
-      //   console.log(this.user.email);
-      // }else{
-      //   console.log('shit!!')
-      // }
-
-      //  var orderEmail = "";
-      //   let userRef = db.collection("Orders").doc(user.email).get().then(doc => {
-      //       if (!doc.exists) {
-      //         console.log("No such document!");
-      //       } else {
-      //         //console.log("orderEmail :", doc.data().orderEmail);
-      //         orderEmail = doc.data().email;
-      //         //console.log("+>", orderEmail);
-      //         //let name = doc.data().name
-      //         // console.log('user name: ',name)
-      //         //console.log('email',{name:name,email:this.email,orderEmail:orderEmail})
-      //         // this.$store.commit('currentUser',{name:name,email:this.email,orderEmail:orderEmail})
-
-      //         if (orderEmail == "user") {
-      //           console.log("go to user");
-      //           this.$router.replace("user");
-      //         }else if (orderEmail == "admin") {
-      //           console.log("go to admin");
-      //           this.$router.replace("admin");
-      //         }
-      //       }
-      //     })
-      //     .catch(err => {
-      //       console.log("Error getting document", err);
-      //     });
-
-      // let ordersRef = db.collection('orders');
-      // let query = ordersRef.where(user, '==', this.user.email).get()
-      //   .then(snapshot => {
-      //     if (snapshot.empty) {
-      //       console.log('No matching documents.');
-      //       return;
-      //     }
-
-      //     snapshot.forEach(doc => {
-      //       console.log(doc.id, '=>', doc.data());
-      //     });
-      //   })
-      //   .catch(err => {
-      //     console.log('Error getting documents', err);
-      //   });
-
       const ordersRef = db.collection("orders");
       let allOrders = ordersRef
         .get()
         .then(snapshot => {
           snapshot.forEach(doc => {
             let orderEmail = doc.data().user.email;
+            let checkPdf = doc.data().user.pdf
             if (orderEmail == this.user.email) {
-              //console.log(doc.id, "=>", doc.data().items);
-
-          // var date = new Date(doc.data().time * 1000)
-
-          //           console.log('date',date)
-              let time = timestampToDate(doc.data().time,'dd/mm/yyyy')
-
-              this.order.email = orderEmail;
-              this.order.invoice = "#" + doc.data().time;
-              this.order.pusrchaseDate = time;
-              this.order.amount = doc.data().totalPrice;
-              this.order.status = doc.data().status;
-
-              // this.order.email = orderEmail;
-              // this.order.invoice = "#" + doc.data().time;
-              // this.order.pusrchaseDate = doc.data().time;
-              // this.order.amount = doc.data().totalPrice;
-              // this.order.status = doc.data().status;
+              let time = timestampToDate(doc.data().time, "dd/mm/yyyy");
+              
+              this.orders.push({
+                email: orderEmail,
+                invoice: "#" + doc.data().time,
+                pusrchaseDate: time,
+                amount: doc.data().totalPrice,
+                status: doc.data().status,
+                pdf:this.pdf
+              });
             }
-            //this.orders.push(this.order)
-
-            this.orders.push(this.order);
+            //console.log(checkPdf);
           });
         })
         .catch(err => {
           console.log("Error getting documents", err);
         });
-
-      console.log(this.orders);
-      this.reset();
     },
-    uploadImage(e) {
+    uploadPdf(e) {
       if (e.target.files[0]) {
         let file = e.target.files[0];
         var storageRef = fb.storage().ref("orders/" + file.name);
@@ -171,14 +133,15 @@ export default {
           },
           () => {
             uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
-              this.product.images.push(downloadURL);
+              this.order.pdf.push(downloadURL);
               console.log("File available at", downloadURL);
             });
           }
         );
         //console.log(e.target.files[0]);
       }
-    }
+    },
+ 
   }
 };
 </script>

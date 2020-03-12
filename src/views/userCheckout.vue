@@ -72,7 +72,8 @@ export default {
         items: this.$store.state.cart,
         totalPrice: this.$store.getters.totalPrice,
         time: Date.now(),
-        status:'Panding'
+        status:'Upload',
+        
       }
     };
   },
