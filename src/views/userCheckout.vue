@@ -57,9 +57,11 @@
       </table>
     </div>
     <div class="float-right mr-5 btn-group">
-      <exportPDF></exportPDF>
+      <router-link to="/user/editOrders" tag="button" class="btn btn-info"
+        >Back To Edit Orders</router-link
+      >
       <button class="btn btn-success ml-2" @click="confirm">
-        Comfirm Order
+        Comfirm Order <exportPDF> </exportPDF>
       </button>
     </div>
   </div>
@@ -87,7 +89,7 @@ export default {
         invoice: "#" + Date.now(),
         time: Date.now(),
         status: "Upload",
-        date: (timestampToDate(Date.now(), "dd/mm/yyyy"))
+        date: timestampToDate(Date.now(), "dd/mm/yyyy")
       }
     };
   },
@@ -98,13 +100,26 @@ export default {
   },
   methods: {
     confirm() {
-      this.$firestore.orders.add(this.order);
-      this.$store.commit("resetCart");
-      this.item = this.$store.state.cart;
-      this.totalPrice = this.$store.getters.totalPrice;
-            Toast.fire({
-        icon: "success",
-        title: "Order Comfirmed"
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Confirm it!"
+      }).then(result => {
+        if (result.value) {
+          this.$firestore.orders.add(this.order);
+          this.$store.commit("resetCart");
+          this.item = this.$store.state.cart;
+          this.totalPrice = this.$store.getters.totalPrice;
+          Toast.fire({
+            icon: "success",
+            title: "Order Comfirmed"
+          });
+          Swal.fire("Comfirmed!!", "Order Comfirmed!!.", "success");
+        }
       });
 
       // console.log("email", this.order.currentUser.email);
