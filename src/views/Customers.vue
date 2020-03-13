@@ -20,7 +20,7 @@
 
       <div class="product-test">
         <h3 class="d-inline-block">Customers list</h3>
-        <button class="btn btn-primary float-right" @click="addNew()">Add profiles</button>
+        <!-- <button class="btn btn-primary float-right" @click="addNew()">Add profiles</button> -->
         <div class="table-responsive">
           <table class="table">
             <thead>

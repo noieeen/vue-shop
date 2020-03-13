@@ -33,7 +33,7 @@
             <tbody>
               <tr v-for="product in products">
                 <td>{{product.name}}</td>
-                <td>{{product.price}}</td>
+                <td>{{product.price|currency('',2)}}</td>
                 <td>
                   <button class="btn btn-primary" @click="editProduct(product)">Edit</button>
                   <button class="btn btn-danger" @click="deleteProduct(product)">Delete</button>

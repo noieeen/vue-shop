@@ -12,8 +12,8 @@
       >
         <g transform>
           <linearGradient id="lg-0.5426714659723162" x1="0" x2="1" y1="0" y2="0">
-            <stop stop-color="#ee6123" offset="0" />
-            <stop stop-color="#7db0dc" offset="1" />
+            <stop stop-color="#d7689d" offset="0" />
+            <stop stop-color="#f3d337" offset="1" />
           </linearGradient>
           <path
             d="M 0 0 M 0 864.188 Q 192 905.132 384 896.446 T 768 862.398 T 1152 784.612 T 1536 694.081 T 1920 738.502 L 1920 255.255 Q 1728 290.681 1536 281.253 T 1152 158.747 T 768 142.287 T 384 185.931 T 0 113.509 Z"
@@ -82,6 +82,7 @@
         </g>
       </svg>
     </div>
+
   </div>
 </template>
 <script>

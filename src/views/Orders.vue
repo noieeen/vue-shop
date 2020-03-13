@@ -26,14 +26,14 @@
             <thead>
               <tr>
                 <th>Customer Name</th>
-                <th>Orders</th>
+                <th>Amount</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="product in products">
-                <td>{{product.name}}</td>
-                <td>{{product.price}}</td>
+                <td>{{product.user.email}}</td>
+                <td>{{product.totalPrice|currency('',2)}}</td>
                 <td>
                   <div class="mr-1">
                     <button class="btn btn-success mr-1" @click="editProduct(product)">Confirm</button>                  
@@ -183,7 +183,7 @@ export default {
   },
   firestore() {
     return {
-      products: db.collection("products"),
+      products: db.collection("orders"),
       orders: db.collection("orders")
     };
   },

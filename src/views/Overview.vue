@@ -122,6 +122,34 @@ export default {
     mdbLineChart,
     mdbContainer
   },
+  
+  firestore() {
+    return {
+      reports: db.collection("MIS").doc("report"),
+      graphRevinue: db.collection("MIS").doc("graphRevinue"),
+      orders: db
+        .collection("orders")
+        .orderBy("time", "desc")
+        .limit(10)
+    };
+  },
+  created() {
+ let cityRef = db.collection('MIS').doc('graphRevinue');
+let getDoc = cityRef.get()
+  .then(doc => {
+    if (!doc.exists) {
+      console.log('No such document!');
+    } else {
+      this.customer = doc.data().cus
+      this.revinue = doc.data().mouth
+      console.log('customer:', this.customer);
+      console.log('revinue:', this.revinue);
+    }
+  })
+  .catch(err => {
+    console.log('Error getting document', err);
+  });
+  },
   data() {
     return {
       reports: [],
@@ -191,33 +219,7 @@ export default {
       }
     };
   },
-  firestore() {
-    return {
-      reports: db.collection("MIS").doc("report"),
-      graphRevinue: db.collection("MIS").doc("graphRevinue"),
-      orders: db
-        .collection("orders")
-        .orderBy("time", "desc")
-        .limit(10)
-    };
-  },
-  created() {
- let cityRef = db.collection('MIS').doc('graphRevinue');
-let getDoc = cityRef.get()
-  .then(doc => {
-    if (!doc.exists) {
-      console.log('No such document!');
-    } else {
-      this.customer = doc.data().cus
-      this.revinue = doc.data().mouth
-      console.log('customer:', this.customer);
-      console.log('revinue:', this.revinue);
-    }
-  })
-  .catch(err => {
-    console.log('Error getting document', err);
-  });
-  }
+  
 };
 </script>
 
