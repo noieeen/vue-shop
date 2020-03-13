@@ -156,14 +156,14 @@ export default {
             backgroundColor: "rgba(255, 99, 132, 0.1)",
             borderColor: "rgba(255, 99, 132, 1)",
             borderWidth: 0.7,
-            data: this.customer//[65, 59, 80, 81, 56, 55, 40]
+            data:[333, 457, 647, 543, 0, 0, 0, 0, 0, 0, 0, 0]
           },
           {
             label: "Revinue",
             backgroundColor: "rgba(151,187,205,0.2)",
             borderColor: "rgba(151,187,205,1)",
             borderWidth: 0.8,
-            data: [28, 48, 40, 19, 86, 27, 90]
+            data: [56346, 657555, 5678567, 785555, 0, 0, 0, 0, 0, 0, 0, 0]
           }
         ]
       },
