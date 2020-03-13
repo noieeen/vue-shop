@@ -5,7 +5,7 @@
         <div class="sidebar-content">
           <!-- sidebar-brand  -->
           <div class="sidebar-item sidebar-brand">
-            <a href="#">Vue Shop</a>
+            <a href="#">COOLpRINTER</a>
             <div id="close-sidebar" @click="closeMenu">
               <i class="fas fa-times"></i>
             </div>
@@ -17,71 +17,37 @@
             </div>
             <div class="user-info">
               <span class="user-name">
-                <strong>{{Admin}}</strong>
+                <strong>{{ Admin }}</strong>
               </span>
-              <span class="user-role">{{email}}</span>
+              <span class="user-role">{{ email }}</span>
               <span class="user-status">
                 <i class="fa fa-circle"></i>
                 <span>Online</span>
               </span>
             </div>
           </div>
-          <!-- sidebar-search  -->
-          <div class="sidebar-item sidebar-search">
-            <div>
-              <div class="input-group">
-                <input type="text" class="form-control search-menu" placeholder="Search..." />
-                <div class="input-group-append">
-                  <span class="input-group-text">
-                    <i class="fa fa-search" aria-hidden="true"></i>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
+
           <!-- sidebar-menu  -->
           <div class="sidebar-item sidebar-menu">
             <ul>
               <li class="header-menu">
                 <span>General</span>
               </li>
-               <li>
-                <router-link to="/admin/customers">
-                  <i class="fas fa-person-booth"></i>
-                  
-                  <span class="menu-text">Customers</span>
+              <li>
+                <router-link to="/admin/overview">
+                  <i class="fa fa-tachometer-alt"></i>
+
+                  <span class="menu-text">Dashboard</span>
                 </router-link>
               </li>
               <li>
-                <router-link to="/admin/overview">
-                  <i class="fas fa-home"></i>
-                  
-                  <span class="menu-text">Overview</span>
+                <router-link to="/admin/customers">
+                  <i class="fas fa-person-booth"></i>
+
+                  <span class="menu-text">Customers</span>
                 </router-link>
               </li>
-              <li class="sidebar-dropdown">
-                <a href="#">
-                  <i class="fa fa-tachometer-alt"></i>
-                  <span class="menu-text">Dashboard</span>
-                  <span class="badge badge-pill badge-warning">New</span>
-                </a>
-                <div class="sidebar-submenu">
-                  <ul>
-                    <li>
-                      <a href="#">
-                        Dashboard 1
-                        <span class="badge badge-pill badge-success">Pro</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">Dashboard 2</a>
-                    </li>
-                    <li>
-                      <a href="#">Dashboard 3</a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
+
               <!-- <li class="sidebar-dropdown">
                             <a href="#">
                                 <i class="fa fa-shopping-cart"></i>
@@ -121,6 +87,13 @@
                   <i class="fas fa-user-tie"></i>
                   <span class="menu-text">Profile</span>
                 </router-link>
+              </li>
+              <li>
+                <a href="#" @click="logout()">
+                  <i class="fa fa-power-off"></i>
+
+                  <span class="menu-text">Logout</span>
+                </a>
               </li>
               <!-- <li class="sidebar-dropdown">
                             <a href="#">
@@ -197,144 +170,12 @@
         </div>
         <!-- sidebar-footer  -->
         <div class="sidebar-footer">
-          <div class="dropdown">
-            <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fa fa-bell"></i>
-              <span class="badge badge-pill badge-warning notification">3</span>
-            </a>
-            <div class="dropdown-menu notifications" aria-labelledby="dropdownMenuMessage">
-              <div class="notifications-header">
-                <i class="fa fa-bell"></i>
-                Notifications
-              </div>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">
-                <div class="notification-content">
-                  <div class="icon">
-                    <i class="fas fa-check text-success border border-success"></i>
-                  </div>
-                  <div class="content">
-                    <div class="notification-detail">
-                      Lorem ipsum dolor sit amet consectetur adipisicing
-                      elit. In totam explicabo
-                    </div>
-                    <div class="notification-time">6 minutes ago</div>
-                  </div>
-                </div>
-              </a>
-              <a class="dropdown-item" href="#">
-                <div class="notification-content">
-                  <div class="icon">
-                    <i class="fas fa-exclamation text-info border border-info"></i>
-                  </div>
-                  <div class="content">
-                    <div class="notification-detail">
-                      Lorem ipsum dolor sit amet consectetur adipisicing
-                      elit. In totam explicabo
-                    </div>
-                    <div class="notification-time">Today</div>
-                  </div>
-                </div>
-              </a>
-              <a class="dropdown-item" href="#">
-                <div class="notification-content">
-                  <div class="icon">
-                    <i class="fas fa-exclamation-triangle text-warning border border-warning"></i>
-                  </div>
-                  <div class="content">
-                    <div class="notification-detail">
-                      Lorem ipsum dolor sit amet consectetur adipisicing
-                      elit. In totam explicabo
-                    </div>
-                    <div class="notification-time">Yesterday</div>
-                  </div>
-                </div>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item text-center" href="#">View all notifications</a>
-            </div>
-          </div>
-          <div class="dropdown">
-            <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fa fa-envelope"></i>
-              <span class="badge badge-pill badge-success notification">10</span>
-            </a>
-         
-            <div class="dropdown-menu messages" aria-labelledby="dropdownMenuMessage">
-              <div class="messages-header">
-                <i class="fa fa-envelope"></i>
-                
-                Messages
-              </div>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">
-                <div class="message-content">
-                  <div class="pic">
-                    <img src="img/user.jpg" alt />
-                  </div>
-                  <div class="content">
-                    <div class="message-title">
-                      <strong>Jhon doe</strong>
-                    </div>
-                    <div class="message-detail">
-                      Lorem ipsum dolor sit amet consectetur adipisicing
-                      elit. In totam explicabo
-                    </div>
-                  </div>
-                </div>
-              </a>
-              <a class="dropdown-item" href="#">
-                <div class="message-content">
-                  <div class="pic">
-                    <img src="img/user.jpg" alt />
-                  </div>
-                  <div class="content">
-                    <div class="message-title">
-                      <strong>Jhon doe</strong>
-                    </div>
-                    <div class="message-detail">
-                      Lorem ipsum dolor sit amet consectetur adipisicing
-                      elit. In totam explicabo
-                    </div>
-                  </div>
-                </div>
-              </a>
-              <a class="dropdown-item" href="#">
-                <div class="message-content">
-                  <div class="pic">
-                    <img src="img/user.jpg" alt />
-                  </div>
-                  <div class="content">
-                    <div class="message-title">
-                      <strong>Jhon doe</strong>
-                    </div>
-                    <div class="message-detail">
-                      Lorem ipsum dolor sit amet consectetur adipisicing
-                      elit. In totam explicabo
-                    </div>
-                  </div>
-                </div>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item text-center" href="#">View all messages</a>
-            </div>
-          </div>
-          <div class="dropdown">
-            <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fa fa-cog"></i>
-              <span class="badge-sonar"></span>
-            </a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuMessage">
-              <a class="dropdown-item" href="#">My profile</a>
-              <a class="dropdown-item" href="#">Help</a>
-              <a class="dropdown-item" href="#">Setting</a>
-            </div>
-          </div>
           <div>
             <a href="#" @click="logout()">
-              <i class="fa fa-power-off"></i>
+              <i class="">Logout</i>
             </a>
           </div>
+
           <div class="pinned-footer">
             <a href="#">
               <i class="fas fa-ellipsis-h"></i>
@@ -356,7 +197,7 @@
 // @ is an alias to /src
 
 import Hero from "@/components/Hero.vue";
-import { fb , db } from "../firebase";
+import { fb, db } from "../firebase";
 
 export default {
   name: "admin",
@@ -398,14 +239,13 @@ export default {
         .catch(error => {
           console.log(error);
         });
-       
     }
   },
   created() {
     var user = fb.auth().currentUser;
-   //var profile = db.collection("profiles").doc(user.uid)
+    //var profile = db.collection("profiles").doc(user.uid)
     this.email = user.email;
-    this.Admin = 'Admin'//profile;
+    this.Admin = "Admin"; //profile;
     //console.log(profile);
   }
 };

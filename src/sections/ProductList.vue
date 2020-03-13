@@ -28,7 +28,7 @@
               </div>
               <h5 class="card-title">DETAILS</h5>
             <div class=" text ellipsis ">
-              <p class="card-text text-concat" v-html="product.description" v-model="text" :maxlength="20"></p>
+              <p class="card-text text-concat" v-html="product.description" v-model="text" ></p>
               </div>
               <hr />
               <div class="row justify-evenly">

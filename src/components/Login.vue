@@ -167,10 +167,10 @@ export default {
                 this.$store.commit('currentUser',{name:name,email:this.email,role:role})
                 if (role == "user") {
                   console.log("go to user");
-                  this.$router.replace("user");
+                  this.$router.replace("user/profile");
                 }else if (role == "admin") {
                   console.log("go to admin");
-                  this.$router.replace("admin");
+                  this.$router.replace("admin/overview");
                 }
               }
             })
@@ -211,7 +211,7 @@ export default {
             });
 
          // this.$router.replace("admin");
-         this.$router.replace("user");
+         this.$router.replace("user/profile");
         })
         .catch(function(error) {
           let errorMSG = error.message;

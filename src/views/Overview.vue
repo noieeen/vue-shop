@@ -1,7 +1,7 @@
 <template>
-  <div class="container mt-5 ">
+  <div class="container mt-5">
     <center>
-      <h1 class="m-3">อีเหี้ย</h1>
+      <h1 class="m-3 mb-5">Dashborad</h1>
     </center>
 
     <div class="row m-2">
@@ -9,10 +9,10 @@
         <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
           <div class="card-header">Total Sale</div>
           <div class="card-body">
-            <h5 class="card-title">Primary card title</h5>
-            <p class="card-text">
-              THB.
-            </p>
+            <h2 class="card-title">
+              {{ reports.totalSale | currency("", 2) }}
+            </h2>
+            <p class="card-text">THB.</p>
           </div>
         </div>
       </div>
@@ -20,10 +20,8 @@
         <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
           <div class="card-header">New Orders</div>
           <div class="card-body">
-            <h5 class="card-title">Primary card title</h5>
-            <p class="card-text">
-              THB.
-            </p>
+            <h2 class="card-title">{{ reports.newOrder | currency("", 2) }}</h2>
+            <p class="card-text">THB.</p>
           </div>
         </div>
       </div>
@@ -31,19 +29,20 @@
         <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
           <div class="card-header">Customers</div>
           <div class="card-body">
-            <h5 class="card-title">Primary card title</h5>
-            <p class="card-text">
-              THB.
-            </p>
+            <h2 class="card-title">{{ reports.customer }}</h2>
+            <p class="card-text">customer</p>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="d-flex justify-content-center ">
+    <div class="d-flex justify-content-center pt-5">
       <div>
-        <div class="card border-light mb-3" style="max-width: 500rem; max-height:1000rem;">
-        <div class="card-header">Revinue</div>
+        <div
+          class="card border-light mb-3"
+          style="max-width: 500rem; max-height:1000rem;"
+        >
+          <div class="card-header">Revinue Garaph</div>
           <mdb-container>
             <mdb-line-chart
               :data="lineChartData"
@@ -55,11 +54,64 @@
         </div>
       </div>
     </div>
+    <div class="pt-5 pb-5">
+      <h3>New Order</h3>
+      <div class="mt-4">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Invoice</th>
+              <th>User Email</th>
+              <th>Pusrchase On</th>
+              <th>Amount</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(i, index) in orders">
+              <th>{{ index + 1 }}</th>
+              <td>{{ i.invoice }}</td>
+              <td>{{ i.user.email }}</td>
+              <td>{{ i.date }}</td>
+              <td>{{ i.totalPrice | currency("", 2) }}</td>
+              <td>
+                <p
+                  class="text-danger font-weight-bold"
+                  v-if="i.status == 'Cancel'"
+                >
+                  {{ i.status }}
+                </p>
+                <p
+                  class="text-success font-weight-bold"
+                  v-if="i.status == 'Success'"
+                >
+                  {{ i.status }}
+                </p>
+                <p
+                  class="text-warning font-weight-bold"
+                  v-if="i.status == 'Panding'"
+                >
+                  {{ i.status }}
+                </p>
+                <p
+                  class="text-primary font-weight-bold"
+                  v-if="i.status == 'Upload'"
+                >
+                  {{ i.status }}
+                </p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import { mdbLineChart, mdbContainer } from "mdbvue";
+import { db } from "../firebase";
 
 export default {
   name: "Overview",
@@ -72,6 +124,17 @@ export default {
   },
   data() {
     return {
+      reports: [],
+      // report: {
+      //   customer: null,
+      //   newOrder: null,
+      //   totalSale: null
+      // },
+      //graphRevinue: [],
+
+      customer: [],
+      revinue: [],
+
       lineChartData: {
         labels: [
           "January",
@@ -80,18 +143,23 @@ export default {
           "April",
           "May",
           "June",
-          "July"
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December"
         ],
         datasets: [
           {
-            label: "My First dataset",
+            label: "Customer",
             backgroundColor: "rgba(255, 99, 132, 0.1)",
             borderColor: "rgba(255, 99, 132, 1)",
             borderWidth: 0.7,
-            data: [65, 59, 80, 81, 56, 55, 40]
+            data: this.customer//[65, 59, 80, 81, 56, 55, 40]
           },
           {
-            label: "My Second dataset",
+            label: "Revinue",
             backgroundColor: "rgba(151,187,205,0.2)",
             borderColor: "rgba(151,187,205,1)",
             borderWidth: 0.8,
@@ -122,6 +190,33 @@ export default {
         }
       }
     };
+  },
+  firestore() {
+    return {
+      reports: db.collection("MIS").doc("report"),
+      graphRevinue: db.collection("MIS").doc("graphRevinue"),
+      orders: db
+        .collection("orders")
+        .orderBy("time", "desc")
+        .limit(10)
+    };
+  },
+  created() {
+ let cityRef = db.collection('MIS').doc('graphRevinue');
+let getDoc = cityRef.get()
+  .then(doc => {
+    if (!doc.exists) {
+      console.log('No such document!');
+    } else {
+      this.customer = doc.data().cus
+      this.revinue = doc.data().mouth
+      console.log('customer:', this.customer);
+      console.log('revinue:', this.revinue);
+    }
+  })
+  .catch(err => {
+    console.log('Error getting document', err);
+  });
   }
 };
 </script>

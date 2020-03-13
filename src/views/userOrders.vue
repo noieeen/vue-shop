@@ -63,7 +63,7 @@
                 </div>
               </div>
               <div>
-                <button class="btn btn-success col-md-12 mt-1" @click="cheO(i)">
+                <button class="btn btn-success col-md-12 mt-1" @click="cheO(i.key)">
                   Upload
                 </button>
               </div>
@@ -131,11 +131,13 @@ export default {
   created() {
     this.checkOrder();
     //console.log(this.orderfs);
+    
   },
 
   methods: {
     cheO(order) {
       console.log(order);
+      console.log(this.order.pdf);
     },
     checkOrder() {
       const ordersRef = db.collection("orders").orderBy("time", "desc");
@@ -199,8 +201,9 @@ export default {
             });
           }
         );
-        //console.log(e.target.files[0]);
+        
       }
+      //this.$firestore.products.doc(key).update({})
     }
   }
 };
