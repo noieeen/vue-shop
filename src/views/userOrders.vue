@@ -44,7 +44,19 @@
                 v-if="i.status == 'Upload'"
               >
                 {{ i.status }}
-              </p>
+               </p>
+                <div style="white-space:pre;" class="text-info" v-if="i.haveEvidence && i.status == 'Upload'">
+                  <i class="fas fa-check-circle mr-1"></i>Evidence
+                </div>
+                <div style="white-space:pre;" class="text-secondary"  v-if="!i.haveEvidence && i.status == 'Upload'">
+                  <i class="far fa-circle mr-1"></i> Evidence
+                </div>
+                 <div style="white-space:pre;" class="text-secondary"  v-if="!i.haveSlip && i.status == 'Upload'" >
+                  <i class="far fa-circle mr-1"></i>  Pay-in Slip
+                </div>
+               <div style="white-space:pre;" class="text-info"  v-if="i.haveSlip && i.status == 'Upload'" >
+                  <i class="fas fa-check-circle mr-1"></i>  Pay-in Slip
+                </div>
             </td>
             <td>
               <div class="custom-file">
@@ -63,12 +75,15 @@
                 </div>
               </div>
               <div>
-                <button class="btn btn-success col-md-12 mt-1" @click="cheO(i.key)">
+                <button
+                  class="btn btn-success col-md-12 mt-1"
+                  @click="updateOrder(i.key)"
+                >
                   Upload
                 </button>
               </div>
             </td>
-               <td>
+            <td>
               <div class="custom-file">
                 <input
                   type="file"
@@ -85,7 +100,7 @@
                 </div>
               </div>
               <div>
-                <button class="btn btn-info col-md-12 mt-1" @click="cheO(i)">
+                <button class="btn btn-info col-md-12 mt-1" @click="updateSlip(i.key)">
                   Upload
                 </button>
               </div>
@@ -118,7 +133,9 @@ export default {
         amount: null,
         status: null,
         pdf: [],
-        paySlip:[]
+        paySlip: [],
+        haveEvidence: null,
+        haveSlip:null
       }
     };
   },
@@ -131,10 +148,35 @@ export default {
   created() {
     this.checkOrder();
     //console.log(this.orderfs);
-    
   },
 
   methods: {
+    updateOrder(key) {
+      const ordersRef = db
+        .collection("orders")
+        .doc(key)
+        .update({
+          evidencePDF: this.order.pdf,
+          haveEvidence: 1
+        })
+        .then(function() {
+          console.log("sss");
+        });
+        this.checkOrder()
+    },
+     updateSlip(key) {
+      const ordersRef = db
+        .collection("orders")
+        .doc(key)
+        .update({
+          slipPDF: this.order.pdf,
+          haveSlip: 1
+        })
+        .then(function() {
+          console.log("sss");
+        });
+         this.checkOrder()
+    },
     cheO(order) {
       console.log(order);
       console.log(this.order.pdf);
@@ -158,7 +200,9 @@ export default {
                 date: doc.data().date,
                 amount: doc.data().totalPrice,
                 status: doc.data().status,
-                pdf: this.pdf
+                haveEvidence: doc.data().haveEvidence,
+                haveSlip:doc.data().haveSlip
+
               });
             }
             //console.log(checkPdf);
@@ -201,7 +245,6 @@ export default {
             });
           }
         );
-        
       }
       //this.$firestore.products.doc(key).update({})
     }

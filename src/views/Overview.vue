@@ -42,7 +42,7 @@
           class="card border-light mb-3"
           style="max-width: 500rem; max-height:1000rem;"
         >
-          <div class="card-header">Revinue Garaph</div>
+          <div  v-if="!loadChart" class="card-header">Revinue Garaph</div>
           <mdb-container>
             <mdb-line-chart
               :data="lineChartData"
@@ -116,13 +116,14 @@ import { db } from "../firebase";
 export default {
   name: "Overview",
   props: {
+
     msg: String
   },
   components: {
     mdbLineChart,
     mdbContainer
   },
-  
+
   firestore() {
     return {
       reports: db.collection("MIS").doc("report"),
@@ -134,21 +135,8 @@ export default {
     };
   },
   created() {
- let cityRef = db.collection('MIS').doc('graphRevinue');
-let getDoc = cityRef.get()
-  .then(doc => {
-    if (!doc.exists) {
-      console.log('No such document!');
-    } else {
-      this.customer = doc.data().cus
-      this.revinue = doc.data().mouth
-      console.log('customer:', this.customer);
-      console.log('revinue:', this.revinue);
-    }
-  })
-  .catch(err => {
-    console.log('Error getting document', err);
-  });
+    
+    // this.getCustomer();
   },
   data() {
     return {
@@ -159,7 +147,7 @@ let getDoc = cityRef.get()
       //   totalSale: null
       // },
       //graphRevinue: [],
-
+      loadChart: true,
       customer: [],
       revinue: [],
 
@@ -184,14 +172,14 @@ let getDoc = cityRef.get()
             backgroundColor: "rgba(255, 99, 132, 0.1)",
             borderColor: "rgba(255, 99, 132, 1)",
             borderWidth: 0.7,
-            data:[333, 457, 647, 543, 0, 0, 0, 0, 0, 0, 0, 0]
+            data:  this.customer()
           },
           {
             label: "Revinue",
             backgroundColor: "rgba(151,187,205,0.2)",
             borderColor: "rgba(151,187,205,1)",
             borderWidth: 0.8,
-            data: [56346, 657555, 5678567, 785555, 0, 0, 0, 0, 0, 0, 0, 0]
+            data: []
           }
         ]
       },
@@ -219,7 +207,50 @@ let getDoc = cityRef.get()
       }
     };
   },
-  
+  mounted (){
+    this.getCustomer()
+  },
+  methods: {
+    getCustomer(){
+      console.log("12312313123123")
+      let cityRef = db.collection("MIS").doc("graphRevinue");
+      cityRef
+        .get()
+        .then(doc => {
+          if (!doc.exists) {
+            console.log("No such document!");
+          } else {
+            this.loadChart = false
+            return doc.data().cus;
+            // this.customer = doc.data().cus;
+             
+            doc.data().mouth;
+            console.log("customer:", this.customer);
+            // console.log('revinue:', this.revinue);
+          }
+        })
+        .catch(err => {
+          console.log("Error getting document", err);
+        });
+    },
+    getRevinue() {
+      let cityRef = db.collection("MIS").doc("graphRevinue");
+      cityRef
+        .get()
+        .then(doc => {
+          if (!doc.exists) {
+            console.log("No such document!");
+          } else {
+            return doc.data().mouth;
+            // console.log('customer:', this.customer);
+            // console.log('revinue:', this.revinue);
+          }
+        })
+        .catch(err => {
+          console.log("Error getting document", err);
+        });
+    }
+  }
 };
 </script>
 
