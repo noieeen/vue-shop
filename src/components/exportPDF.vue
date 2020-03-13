@@ -38,6 +38,8 @@ export default {
   },
   methods: {
     pdf() {
+
+
       var item = this.item;
 
       //console.log(item[0].productName);

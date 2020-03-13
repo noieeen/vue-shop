@@ -84,7 +84,8 @@ export default {
       
     },
     clear(){
-      this.$store.commit('resetCart')
+      // this.$store.commit('resetCart')
+      this.$store.commit("resetCart");
     }
   }
 };

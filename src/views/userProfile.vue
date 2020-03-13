@@ -59,6 +59,7 @@
                       v-model="profile.fname"
                       placeholder="First name"
                       class="form-control"
+                      required
                     />
                   </div>
                 </div>
@@ -104,7 +105,7 @@
                   <label>Company Address</label>
                   <div class="form-group">
                     <textarea
-                      type="text"
+                      type="email"
                       v-model="profile.comAddress"
                       placeholder="Company Address"
                       class="form-control"
@@ -579,6 +580,38 @@ export default {
       /* https://youtu.be/l3xJIlIU9SQ?list=PLB4AdipoHpxYPjGo0n2m6tmCLud_iSEbv&t=661 */
       // this.$firestore.profiles.doc(profile['.key']).update({
       // console.log(this.$firestore.profile.name);
+
+if(this.profile.fname==null&&this.profile.fname == ""&&
+this.profile.lname==null&&this.profile.lname == ""&&
+this.profile.phone==null&&this.profile.phone == ""&&
+this.profile.comName==null&&this.profile.comName == ""&&
+this.profile.comAddress==null&&this.profile.comAddress == ""&&
+this.profile.fax==null&&this.profile.fax == "" &&
+this.profile.comEmail==null&&this.profile.comEmail == ""&&
+this.profile.country==null&&this.profile.country == ""&&
+this.profile.zipcode==null&&this.profile.zipcode == ""){
+  
+  alert('กรุณากรอกในฟอร์มข้อมูลให้ครบถ้วน')
+}else if(this.profile.fname==null||this.profile.fname == ""){
+  alert('กรุณากรอก First Name')
+}else if(this.profile.lname==null||this.profile.lname == ""){
+  alert('กรุณากรอก Last Name')
+}else if(this.profile.phone==null||this.profile.phone == ""){
+  alert('กรุณากรอก Phone Number')
+}else if(this.profile.comName==null||this.profile.comName == ""){
+  alert('กรุณากรอก Company Name')
+}else if(this.profile.comAddress==null||this.profile.comAddress == ""){
+  alert('กรุณากรอก Company Address')
+}else if(this.profile.fax==null||this.profile.fax == ""){
+  alert('กรุณากรอก Fax.')
+}else if(this.profile.comEmail==null||this.profile.comEmail == ""){
+  alert('กรุณากรอก Company Email')
+}else if(this.profile.country==null||this.profile.country == ""){
+  alert('กรุณากรอก Country')
+}else if(this.profile.zipcode==null||this.profile.zipcode == ""){
+  alert('กรุณากรอก Zipcode')
+}else{
+
       this.$firestore.profile.update({
         // id:this.profile.uid,
         fname: this.profile.fname,
@@ -591,6 +624,11 @@ export default {
         country: this.profile.country,
         zipcode: this.profile.zipcode
       });
+      
+      Swal.fire("Saved!", "Saved successfully.", "success");
+
+
+      }
     },
     uploadImage() {}
   },

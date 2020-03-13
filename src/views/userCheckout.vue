@@ -18,16 +18,22 @@
             <td>{{ i.productName }}</td>
             <td>X {{ i.productQuantity }}</td>
             <td>
-              {{ i.productPrice | currency("", 2, {
-              symbolOnLeft: false,
-              spaceBetweenAmountAndSymbol: true
-              })}}
+              {{
+                i.productPrice
+                  | currency("", 2, {
+                    symbolOnLeft: false,
+                    spaceBetweenAmountAndSymbol: true
+                  })
+              }}
             </td>
             <td>
-              {{ i.productPrice * i.productQuantity | currency("", 2, {
-              symbolOnLeft: false,
-              spaceBetweenAmountAndSymbol: true
-              })}}
+              {{
+                (i.productPrice * i.productQuantity)
+                  | currency("", 2, {
+                    symbolOnLeft: false,
+                    spaceBetweenAmountAndSymbol: true
+                  })
+              }}
             </td>
           </tr>
         </tbody>
@@ -38,10 +44,13 @@
             <th></th>
             <th>Total Price</th>
             <th>
-              {{totalPrice | currency("THB", 2, {
-              symbolOnLeft: false,
-              spaceBetweenAmountAndSymbol: true
-              })}}
+              {{
+                totalPrice
+                  | currency("THB", 2, {
+                    symbolOnLeft: false,
+                    spaceBetweenAmountAndSymbol: true
+                  })
+              }}
             </th>
           </tr>
         </thead>
@@ -49,13 +58,17 @@
     </div>
     <div class="float-right mr-5 btn-group">
       <exportPDF></exportPDF>
-      <button class="btn btn-success ml-2" @click="confirm">Comfirm Order</button>
+      <button class="btn btn-success ml-2" @click="confirm">
+        Comfirm Order
+      </button>
     </div>
   </div>
 </template>
 <script>
 import exportPDF from "@/components/exportPDF.vue";
 import { db } from "../firebase";
+
+const timestampToDate = require("timestamp-to-date");
 
 export default {
   components: {
@@ -71,9 +84,10 @@ export default {
         user: this.$store.state.currentUser,
         items: this.$store.state.cart,
         totalPrice: this.$store.getters.totalPrice,
+        invoice: "#" + Date.now(),
         time: Date.now(),
-        status:'Upload',
-        
+        status: "Upload",
+        date: (timestampToDate(Date.now(), "dd/mm/yyyy"))
       }
     };
   },
@@ -88,6 +102,10 @@ export default {
       this.$store.commit("resetCart");
       this.item = this.$store.state.cart;
       this.totalPrice = this.$store.getters.totalPrice;
+            Toast.fire({
+        icon: "success",
+        title: "Order Comfirmed"
+      });
 
       // console.log("email", this.order.currentUser.email);
       // console.log("item", Date.now());
