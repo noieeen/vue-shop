@@ -10,7 +10,7 @@
           <div class="card-header">Total Sale</div>
           <div class="card-body">
             <h2 class="card-title">
-              {{ reports.totalSale | currency("", 2) }}
+              {{ totalPrice | currency("", 2) }}
             </h2>
             <p class="card-text">THB.</p>
           </div>
@@ -20,17 +20,17 @@
         <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
           <div class="card-header">New Orders</div>
           <div class="card-body">
-            <h2 class="card-title">{{ reports.newOrder | currency("", 2) }}</h2>
+            <h2 class="card-title">{{ LastOrder | currency("", 2) }}</h2>
             <p class="card-text">THB.</p>
           </div>
         </div>
       </div>
       <div class="col">
         <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
-          <div class="card-header">Customers</div>
+          <div class="card-header">Orders</div>
           <div class="card-body">
-            <h2 class="card-title">{{ reports.customer }}</h2>
-            <p class="card-text">customer</p>
+            <h2 class="card-title">{{ countOrder }}</h2>
+            <p class="card-text">Orders</p>
           </div>
         </div>
       </div>
@@ -42,14 +42,30 @@
           class="card border-light mb-3"
           style="max-width: 500rem; max-height:1000rem;"
         >
-          <div  v-if="!loadChart" class="card-header">Revinue Garaph</div>
+          <div class="card-header">Revinue Garaph</div>
+
           <mdb-container>
-            <mdb-line-chart
+            <mdb-bar-chart
+              :data="lineChartData1"
+              :options="lineChartOptions1"
+              :width="600"
+              :height="300"
+            ></mdb-bar-chart>
+          </mdb-container>
+        </div>
+        <div
+          class="card border-light mb-3"
+          style="max-width: 500rem; max-height:1000rem;"
+        >
+          <div class="card-header">Customer Garaph</div>
+
+          <mdb-container>
+            <mdb-bar-chart
               :data="lineChartData"
               :options="lineChartOptions"
-              :width="900"
-              :height="400"
-            ></mdb-line-chart>
+              :width="600"
+              :height="300"
+            ></mdb-bar-chart>
           </mdb-container>
         </div>
       </div>
@@ -110,17 +126,16 @@
 </template>
 
 <script>
-import { mdbLineChart, mdbContainer } from "mdbvue";
+import { mdbBarChart, mdbContainer } from "mdbvue";
 import { db } from "../firebase";
 
 export default {
   name: "Overview",
   props: {
-
     msg: String
   },
   components: {
-    mdbLineChart,
+    mdbBarChart,
     mdbContainer
   },
 
@@ -128,18 +143,15 @@ export default {
     return {
       reports: db.collection("MIS").doc("report"),
       graphRevinue: db.collection("MIS").doc("graphRevinue"),
-      orders: db
-        .collection("orders")
-        .orderBy("time", "desc")
-        .limit(10)
+      orders: db.collection("orders").orderBy("time", "desc")
     };
   },
   created() {
-    
     // this.getCustomer();
   },
   data() {
     return {
+      totalPrice: 0,
       reports: [],
       // report: {
       //   customer: null,
@@ -147,48 +159,43 @@ export default {
       //   totalSale: null
       // },
       //graphRevinue: [],
+      countOrder:0,
       loadChart: true,
       customer: [],
       revinue: [],
-
-      lineChartData: {
-        labels: [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-          "August",
-          "September",
-          "October",
-          "November",
-          "December"
-        ],
-        datasets: [
-          {
-            label: "Customer",
-            backgroundColor: "rgba(255, 99, 132, 0.1)",
-            borderColor: "rgba(255, 99, 132, 1)",
-            borderWidth: 0.7,
-            data:  this.customer()
-          },
-          {
-            label: "Revinue",
-            backgroundColor: "rgba(151,187,205,0.2)",
-            borderColor: "rgba(151,187,205,1)",
-            borderWidth: 0.8,
-            data: []
-          }
-        ]
-      },
+      LastOrder: 0,
+      lineChartData: {},
+      lineChartData1: {},
       lineChartOptions: {
         responsive: false,
         maintainAspectRatio: false,
         scales: {
           xAxes: [
             {
+              barPercentage: 1,
+              gridLines: {
+                display: true,
+                color: "rgba(0, 0, 0, 0.1)"
+              }
+            }
+          ],
+          yAxes: [
+            {
+              gridLines: {
+                display: true,
+                color: "rgba(0, 0, 0, 0.1)"
+              }
+            }
+          ]
+        }
+      },
+      lineChartOptions1: {
+        responsive: false,
+        maintainAspectRatio: false,
+        scales: {
+          xAxes: [
+            {
+              barPercentage: 1,
               gridLines: {
                 display: true,
                 color: "rgba(0, 0, 0, 0.1)"
@@ -207,12 +214,13 @@ export default {
       }
     };
   },
-  mounted (){
-    this.getCustomer()
+  mounted() {
+    this.getCustomer();
+    this.getTotalSale();
   },
   methods: {
-    getCustomer(){
-      console.log("12312313123123")
+    getCustomer() {
+      console.log("12312313123123");
       let cityRef = db.collection("MIS").doc("graphRevinue");
       cityRef
         .get()
@@ -220,34 +228,96 @@ export default {
           if (!doc.exists) {
             console.log("No such document!");
           } else {
-            this.loadChart = false
-            return doc.data().cus;
-            // this.customer = doc.data().cus;
-             
-            doc.data().mouth;
-            console.log("customer:", this.customer);
-            // console.log('revinue:', this.revinue);
+            this.loadChart = false;
+            this.lineChartData = {
+              labels: [
+                "January",
+                "February",
+                "March",
+                "April",
+                "May",
+                "June",
+                "July",
+                "August",
+                "September",
+                "October",
+                "November",
+                "December"
+              ],
+              datasets: [
+                {
+                  label: "customer",
+                  data: doc.data().cus,
+                  backgroundColor: "rgba(255, 99, 132, 0.2)",
+
+                  borderColor: "rgba(255,99,132,1)",
+                  borderWidth: 1
+                }
+              ]
+            };
+            this.lineChartData1 = {
+              labels: [
+                "January",
+                "February",
+                "March",
+                "April",
+                "May",
+                "June",
+                "July",
+                "August",
+                "September",
+                "October",
+                "November",
+                "December"
+              ],
+              datasets: [
+                {
+                  label: "Revinue",
+                  data: doc.data().mouth,
+                  backgroundColor: "rgba(54, 162, 235, 0.2)",
+
+                  borderColor: "rgba(54, 162, 235, 1)",
+                  borderWidth: 1
+                }
+              ]
+            };
           }
         })
         .catch(err => {
           console.log("Error getting document", err);
         });
     },
-    getRevinue() {
-      let cityRef = db.collection("MIS").doc("graphRevinue");
-      cityRef
+    getTotalSale() {
+      let ordersRef1 = db
+        .collection("orders")
+        .orderBy("invoice", "desc")
+        .limit(1);
+      console.log(ordersRef1);
+      const ordersRef = db.collection("orders").orderBy("invoice", "desc");
+      let allOrders = ordersRef
         .get()
-        .then(doc => {
-          if (!doc.exists) {
-            console.log("No such document!");
-          } else {
-            return doc.data().mouth;
-            // console.log('customer:', this.customer);
-            // console.log('revinue:', this.revinue);
-          }
+        .then(snapshot => {
+          let i = 0;
+          snapshot.forEach(doc => {
+            //console.log(doc.id)
+            if (i<1) {
+              this.LastOrder = doc.data().totalPrice;
+            }
+            // } console.log(doc.data().amount)
+            // console.log(this.totalPrice);
+            if (doc.data().status == "Success") {
+              this.totalPrice += doc.data().totalPrice;
+            }
+            
+            i++;
+this.countOrder = i;
+            //console.log(checkPdf);
+          });
+          
         })
+        
         .catch(err => {
-          console.log("Error getting document", err);
+          console.log("Error getting documents", err);
         });
     }
   }

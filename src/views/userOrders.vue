@@ -44,19 +44,35 @@
                 v-if="i.status == 'Upload'"
               >
                 {{ i.status }}
-               </p>
-                <div style="white-space:pre;" class="text-info" v-if="i.haveEvidence && i.status == 'Upload'">
-                  <i class="fas fa-check-circle mr-1"></i>Evidence
-                </div>
-                <div style="white-space:pre;" class="text-secondary"  v-if="!i.haveEvidence && i.status == 'Upload'">
-                  <i class="far fa-circle mr-1"></i> Evidence
-                </div>
-                 <div style="white-space:pre;" class="text-secondary"  v-if="!i.haveSlip && i.status == 'Upload'" >
-                  <i class="far fa-circle mr-1"></i>  Pay-in Slip
-                </div>
-               <div style="white-space:pre;" class="text-info"  v-if="i.haveSlip && i.status == 'Upload'" >
-                  <i class="fas fa-check-circle mr-1"></i>  Pay-in Slip
-                </div>
+              </p>
+              <div
+                style="white-space:pre;"
+                class="text-info"
+                v-if="i.haveEvidence && i.status == 'Upload'"
+              >
+                <i class="fas fa-check-circle mr-1"></i>Evidence
+              </div>
+              <div
+                style="white-space:pre;"
+                class="text-secondary"
+                v-if="!i.haveEvidence && i.status == 'Upload'"
+              >
+                <i class="far fa-circle mr-1"></i> Evidence
+              </div>
+              <div
+                style="white-space:pre;"
+                class="text-secondary"
+                v-if="!i.haveSlip && i.status == 'Upload'"
+              >
+                <i class="far fa-circle mr-1"></i> Pay-in Slip
+              </div>
+              <div
+                style="white-space:pre;"
+                class="text-info"
+                v-if="i.haveSlip && i.status == 'Upload'"
+              >
+                <i class="fas fa-check-circle mr-1"></i> Pay-in Slip
+              </div>
             </td>
             <td>
               <div class="custom-file">
@@ -77,7 +93,7 @@
               <div>
                 <button
                   class="btn btn-success col-md-12 mt-1"
-                  @click="updateOrder(i.key)"
+                  @click="updateOrder(i)"
                 >
                   Upload
                 </button>
@@ -100,7 +116,10 @@
                 </div>
               </div>
               <div>
-                <button class="btn btn-info col-md-12 mt-1" @click="updateSlip(i.key)">
+                <button
+                  class="btn btn-info col-md-12 mt-1"
+                  @click="updateSlip(i)"
+                >
                   Upload
                 </button>
               </div>
@@ -135,7 +154,7 @@ export default {
         pdf: [],
         paySlip: [],
         haveEvidence: null,
-        haveSlip:null
+        haveSlip: null
       }
     };
   },
@@ -151,10 +170,23 @@ export default {
   },
 
   methods: {
-    updateOrder(key) {
-      const ordersRef = db
+    updateOrder(item) {
+       if (item.haveSlip && item.haveEvidence) {
+         const ordersRef = db
         .collection("orders")
-        .doc(key)
+        .doc(item.key)
+        .update({
+          evidencePDF: this.order.pdf,
+          haveEvidence: 1,
+          status: "Panding"
+        })
+        .then(function() {
+          console.log("sss");
+        });
+       }else{
+           const ordersRef = db
+        .collection("orders")
+        .doc(item.key)
         .update({
           evidencePDF: this.order.pdf,
           haveEvidence: 1
@@ -162,20 +194,37 @@ export default {
         .then(function() {
           console.log("sss");
         });
-        this.checkOrder()
+       }
+      
+      this.checkOrder();
     },
-     updateSlip(key) {
-      const ordersRef = db
-        .collection("orders")
-        .doc(key)
-        .update({
-          slipPDF: this.order.pdf,
-          haveSlip: 1
-        })
-        .then(function() {
-          console.log("sss");
-        });
-         this.checkOrder()
+    updateSlip(item) {
+      if (item.haveSlip && item.haveEvidence) {
+        const ordersRef = db
+          .collection("orders")
+          .doc(item.key)
+          .update({
+            slipPDF: this.order.pdf,
+            haveSlip: 1,
+            status: "Panding"
+          })
+          .then(function() {
+            console.log("sss1231");
+          });
+      } else {
+        const ordersRef = db
+          .collection("orders")
+          .doc(item.key)
+          .update({
+            slipPDF: this.order.pdf,
+            haveSlip: 1
+          })
+          .then(function() {
+            console.log("sss");
+          });
+      }
+
+      this.checkOrder();
     },
     cheO(order) {
       console.log(order);
@@ -201,8 +250,7 @@ export default {
                 amount: doc.data().totalPrice,
                 status: doc.data().status,
                 haveEvidence: doc.data().haveEvidence,
-                haveSlip:doc.data().haveSlip
-
+                haveSlip: doc.data().haveSlip
               });
             }
             //console.log(checkPdf);
@@ -240,7 +288,7 @@ export default {
           },
           () => {
             uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
-              this.order.pdf.push(downloadURL);
+              this.order.pdf = downloadURL;
               console.log("File available at", downloadURL);
             });
           }
