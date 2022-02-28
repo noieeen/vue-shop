@@ -1,14 +1,14 @@
 <template>
-  <div class="products">
+  <div class="profiles">
     <div class="container h-100">
       <div class="intro h-100">
         <div class="row h-100 jusify-content-center align-items-center">
           <div class="col-md-6">
-            <h3>Product Page</h3>
+            <h3>Customers Page</h3>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
           </div>
           <div class="col-md-6">
-            <img src="/img/productsPage.png" alt class="img-fluid" />
+            <img src="/img/profilesPage.png" alt class="img-fluid" />
           </div>
 
           <div class="col-md-6"></div>
@@ -19,24 +19,25 @@
       <hr />
 
       <div class="product-test">
-        <h3 class="d-inline-block">Product list</h3>
-        <button class="btn btn-primary float-right" @click="addNew()">Add Products</button>
+        <h3 class="d-inline-block">Customers list</h3>
+        <!-- <button class="btn btn-primary float-right" @click="addNew()">Add profiles</button> -->
         <div class="table-responsive">
           <table class="table">
             <thead>
               <tr>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Modify</th>
+                <th>#</th>
+                <th>Customer Name</th>
+
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="product in products">
+              <tr v-for="(product,index) in profiles">
+                <td>{{index+1}}</td>
                 <td>{{product.name}}</td>
-                <td>{{product.price|currency('',2)}}</td>
                 <td>
                   <button class="btn btn-primary" @click="editProduct(product)">Edit</button>
-                  <button class="btn btn-danger" @click="deleteProduct(product)">Delete</button>
+                  <button class="btn btn-danger" @click="deleteProduct(product)">Delete User</button>
                 </td>
               </tr>
             </tbody>
@@ -162,14 +163,14 @@ import { VueEditor } from "vue2-editor";
 import { fb, db } from "../firebase";
 
 export default {
-  name: "Products",
+  name: "profiles",
   components: { VueEditor },
   props: {
     msg: String
   },
   data() {
     return {
-      products: [],
+      profiles: [],
       product: {
         name: null,
         description: null,
@@ -185,7 +186,7 @@ export default {
   },
   firestore() {
     return {
-      products: db.collection("products")
+      profiles: db.collection("profiles")
     };
   },
   methods: {
@@ -219,7 +220,7 @@ export default {
     uploadImage(e) {
       if (e.target.files[0]) {
         let file = e.target.files[0];
-        var storageRef = fb.storage().ref("products/" + file.name);
+        var storageRef = fb.storage().ref("profiles/" + file.name);
         let uploadTask = storageRef.put(file);
 
         uploadTask.on(
@@ -247,16 +248,8 @@ export default {
     },
 
     updateProduct(product) {
-      /* ยังแก้ไม่ได้    **ได้แล้ว */
-      //console.log(this.$firestore.products.doc(product['.key']));
 
-      //  this.$firestore.products.doc(product['.key']).update({  //WORK
-      //   name: "Amrani HoussainNEW",
-      //   github: "@amranidev"
-      //   });
-
-      // const newPr = Object.assign({},this.product);
-      this.$firestore.products.doc(product[".key"]).update({
+      this.$firestore.profiles.doc(product[".key"]).update({
         name: this.product.name,
         description: this.product.description,
         price: this.product.price,
@@ -264,8 +257,8 @@ export default {
         tags: this.product.tags,
         images: this.product.images
       });
-      //     // this.$firestore.products.doc(this.product.id).update(this.product);
-      //    // this.$firestore.products.doc(product['.key']).update(this.product);
+      //     // this.$firestore.profiles.doc(this.product.id).update(this.product);
+      //    // this.$firestore.profiles.doc(product['.key']).update(this.product);
       //     console.log(newPr);
 
       /*
@@ -298,7 +291,7 @@ export default {
         confirmButtonText: "Yes, delete it!"
       }).then(result => {
         if (result.value) {
-          this.$firestore.products.doc(doc[".key"]).delete();
+          this.$firestore.profiles.doc(doc[".key"]).delete();
           // console.log(doc['.key']);
 
           Swal.fire("Deleted!", "Deleted successfully.", "success");
@@ -311,7 +304,7 @@ export default {
     },
     readData() {},
     addProduct() {
-      this.$firestore.products.add(this.product);
+      this.$firestore.profiles.add(this.product);
 
       Toast.fire({
         icon: "success",

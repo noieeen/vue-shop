@@ -1,31 +1,16 @@
 <template>
   <div class="home">
+    <Intro />
     <Navbar></Navbar>
-    <Hero />
-    <products-list></products-list>
-
-    <div class="container h-100">
-      <div class="row p-5 h-100 justify-content-center align-items-center">
-        <div class="col-md-6">
-          <img src="/img/svg/product.svg" alt width="400" />
-        </div>
-        <div class="col-md-6">
-          <h3>Learn More About us</h3>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur
-            quaerat voluptate iusto? Nihil voluptas vitae veritatis magnam
-            reprehenderit, reiciendis ex? Libero quasi natus veniam voluptatum,
-            voluptas exercitationem ratione consectetur et!
-          </p>
-          <button class="btn custom-btn btn-outline-primary mr-4">Browse Products</button>
-        </div>
-      </div>
+    <Homeslide />
+    <div class="container h-100 pt-56 pb-64">
+      <div
+        class="row p-5 h-100 justify-content-center align-items-center"
+      ></div>
     </div>
-    <Products />
-    <!-- <Productslist /> -->
-    <login></login>
-    <mini-cart></mini-cart>
     
+    <login></login>
+    <!-- <mini-cart></mini-cart> -->
   </div>
 </template>
 
@@ -34,8 +19,11 @@
 // import HelloWorld from "@/components/HelloWorld.vue";
 import Hero from "@/components/Hero.vue";
 import Products from "@/sections/Products.vue";
+import Homeslide from "@/components/Homeslide.vue";
 //import Productslist from "@/sections/ProductList.vue";
 import Login from "@/components/Login.vue";
+
+import Intro from "@/components/Intro.vue";
 
 export default {
   name: "home",
@@ -43,7 +31,9 @@ export default {
     // HelloWorld
     Hero,
     Products,
-    Login
+    Login,
+    Homeslide,
+    Intro
   }
 };
 </script>
