@@ -5,7 +5,7 @@
         <div class="row h-100 jusify-content-center align-items-center">
           <div class="col-md-6">
             <h3>Orders Page</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+            <p>Manage Your Order</p>
           </div>
           <div class="col-md-6">
             <img src="/img/productsPage.png" alt class="img-fluid" />
@@ -20,136 +20,110 @@
 
       <div class="product-test">
         <h3 class="d-inline-block">Orders list</h3>
-        <button class="btn btn-primary float-right" @click="addNew()">Add Order</button>
+
         <div class="table-responsive">
           <table class="table">
             <thead>
               <tr>
                 <th>Customer Name</th>
-                <th>Orders</th>
+                <th>Amount</th>
+                <th>Stutas</th>
                 <th>Action</th>
+                <th>Acception</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="product in products">
-                <td>{{product.name}}</td>
-                <td>{{product.price}}</td>
+              <tr v-for="order in orders">
+                <td>{{ order.email }}</td>
+                <td>{{ order.amount | currency("", 2) }}</td>
+                <td>
+                  <p
+                    class="text-danger font-weight-bold"
+                    v-if="order.status == 'Cancel'"
+                  >
+                    {{ order.status }}
+                  </p>
+                  <p
+                    class="text-success font-weight-bold"
+                    v-if="order.status == 'Success'"
+                  >
+                    {{ order.status }}
+                  </p>
+                  <p
+                    class="text-warning font-weight-bold"
+                    v-if="order.status == 'Panding'"
+                  >
+                    {{ order.status }}
+                  </p>
+                  <p
+                    class="text-primary font-weight-bold"
+                    v-if="order.status == 'Upload'"
+                  >
+                    {{ order.status }}
+                  </p>
+                  <div
+                    style="white-space:pre;"
+                    class="text-info"
+                    v-if="order.haveEvidence && order.status == 'Upload'"
+                  >
+                    <i class="fas fa-check-circle mr-1"></i>Evidence
+                  </div>
+                  <div
+                    style="white-space:pre;"
+                    class="text-secondary"
+                    v-if="!order.haveEvidence && order.status == 'Upload'"
+                  >
+                    <i class="far fa-circle mr-1"></i> Evidence
+                  </div>
+                  <div
+                    style="white-space:pre;"
+                    class="text-secondary"
+                    v-if="!order.haveSlip && order.status == 'Upload'"
+                  >
+                    <i class="far fa-circle mr-1"></i> Pay-in Slip
+                  </div>
+                  <div
+                    style="white-space:pre;"
+                    class="text-info"
+                    v-if="order.haveSlip && order.status == 'Upload'"
+                  >
+                    <i class="fas fa-check-circle mr-1"></i> Pay-in Slip
+                  </div>
+                </td>
                 <td>
                   <div class="mr-1">
-                    <button class="btn btn-success mr-1" @click="editProduct(product)">Confirm</button>                  
-                    <button class="btn btn-danger" @click="deleteProduct(product)">Eject</button>
+                    <button
+                      class="btn btn-success mr-1"
+                      @click="editProduct(order)"
+                    >
+                      Confirm
+                    </button>
+                    <button class="btn btn-danger" @click="ejectProduct(order)">
+                      Eject
+                    </button>
                   </div>
-                  </td>
-                  <td>
+                </td>
+                <td>
                   <div>
-                    <button class="btn btn btn-outline-info mr-1" @click="">Quotation</button>
-                    <button class="btn btn btn-outline-success" @click="">Acception</button>
-                  </div>                  
+                    <button
+                      v-if="order.evidencePDF"
+                      class="btn btn btn-outline-info mr-1"
+                      @click="getQuotation(order)"
+                    >
+                      Quotation
+                    </button>
+                    <button
+                      v-if="order.slipPDF"
+                      class="btn btn btn-outline-success"
+                      @click="getAccption(order)"
+                    >
+                      Acception
+                    </button>
+                  </div>
                 </td>
               </tr>
             </tbody>
           </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- Modal -->
-    <div
-      class="modal fade"
-      id="product"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="editLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="editLabel">Edit Product</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="row">
-              <!-- main product -->
-              <div class="col-md-8">
-                <div class="form-group">
-                  <input
-                    type="text"
-                    placeholder="Product Name"
-                    v-model="product.name"
-                    class="form-control"
-                  />
-                </div>
-
-                <div class="form-group">
-                  <vue-editor v-model="product.description" />
-                  <!-- <textarea type="text" placeholder="Product Description" v-model="product.description" class="form-control"></textarea> -->
-                </div>
-              </div>
-              <!-- product sidebar -->
-              <div class="col-md-4">
-                <h4 class="display-6">Product Details</h4>
-                <hr />
-
-                <div class="form-group">
-                  <input
-                    type="text"
-                    placeholder="Product price"
-                    v-model="product.price"
-                    class="form-control"
-                  />
-                </div>
-
-                <div class="form-group">
-                  <input
-                    type="text"
-                    @keyup.188="addTag()"
-                    placeholder="Product tags"
-                    v-model="tag"
-                    class="form-control"
-                  />
-
-                  <div class="d-flex">
-                    <p v-for="tag in product.tags">
-                      <span class="p-1">{{tag}}</span>
-                    </p>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label for="product_image">Product Images</label>
-                  <input type="file" @change="uploadImage" class="form-control" />
-                </div>
-
-                <div class="form-group d-flex">
-                  <div class="p-1" v-for="(image, index) in product.images">
-                    <div class="img-wrapp">
-                      <img :src="image" alt="" width="80px" />
-                      <span class="delete-img" @click="deleteImage(image,index)">X</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- modal-footer -->
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button
-              @click="addProduct()"
-              type="button"
-              class="btn btn-primary"
-              v-if="modal == 'new'"
-            >Save changes</button>
-            <button
-              @click="updateProduct(product)"
-              type="button"
-              class="btn btn-primary"
-              v-if="modal == 'edit'"
-            >Apply changes</button>
-          </div>
         </div>
       </div>
     </div>
@@ -168,6 +142,7 @@ export default {
   },
   data() {
     return {
+      orders: [],
       products: [],
       product: {
         name: null,
@@ -178,51 +153,62 @@ export default {
       },
       activeItem: null,
       modal: null,
-      tag: null
-    };
-  },
-  firestore() {
-    return {
-      products: db.collection("products"),
-      orders: db.collection("orders")
-    };
-  },
-  methods: {
-    reset(){
-      this.product = {
-        name: null,
-        description: null,
-        price: null,
-        tags: [],
-        images: []
+      tag: null,
+      order: {
+        email: null,
+        invoice: null,
+        pusrchaseDate: null,
+        amount: null,
+        status: null,
+        pdf: [],
+        paySlip: [],
+        haveEvidence: null,
+        haveSlip: null,
+        evidencePDF: null,
+        slipPDF: null
       }
-    },
-    deleteImage(img,index){
+    };
+  },
+  created() {
+    this.getOrder();
+    //console.log(this.orderfs);
+  },
+  // firestore() {
+  //   console.log(db.collection("orders"));
+  //   return {
+  //     orders: db.collection("orders")
+  //   };
+  // },
+  methods: {
+    deleteImage(img, index) {
       let image = fb.storage().refFromURL(img);
 
-      this.product.images.splice(index,1);
-      image.delete().then(()=>{
-        console.log('Image deleted');
-      }).catch((error)=>{
-        console.log('Error occurred');
-      });
+      this.product.images.splice(index, 1);
+      image
+        .delete()
+        .then(() => {
+          console.log("Image deleted");
+        })
+        .catch(error => {
+          console.log("Error occurred");
+        });
     },
-    addTag() {
-      this.product.tags.push(this.tag);
-      this.tag = "";
-    },
+
     uploadImage(e) {
       if (e.target.files[0]) {
         let file = e.target.files[0];
         var storageRef = fb.storage().ref("products/" + file.name);
         let uploadTask = storageRef.put(file);
 
-        uploadTask.on("state_changed",snapshot => {
+        uploadTask.on(
+          "state_changed",
+          snapshot => {
             // Observe state change events such as progress, pause, and resume
           },
           error => {
             // Handle unsuccessful uploads
-          },() => {
+          },
+          () => {
             uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
               this.product.images.push(downloadURL);
               console.log("File available at", downloadURL);
@@ -232,40 +218,16 @@ export default {
         //console.log(e.target.files[0]);
       }
     },
-    addNew() {
-      this.modal = "new";
-      this.reset();
-      $("#product").modal("show");
-    },
 
     updateProduct(product) {
-      /* ยังแก้ไม่ได้    **ได้แล้ว */
-      //console.log(this.$firestore.products.doc(product['.key']));
+      this.$firestore.products.doc(product[".key"]).update({
+        name: this.product.name,
+        description: this.product.description,
+        price: this.product.price,
+        tags: this.product.tags,
+        images: this.product.images
+      });
 
-      //  this.$firestore.products.doc(product['.key']).update({  //WORK
-      //   name: "Amrani HoussainNEW",
-      //   github: "@amranidev"
-      //   });
-
-      // const newPr = Object.assign({},this.product);
-         this.$firestore.products.doc(product['.key']).update({
-           name:this.product.name,
-           description:this.product.description,
-           price:this.product.price,
-           tags:this.product.tags,
-           images:this.product.images
-         });
-      //     // this.$firestore.products.doc(this.product.id).update(this.product);
-      //    // this.$firestore.products.doc(product['.key']).update(this.product);
-      //     console.log(newPr);
-
-      /*
-        name: null,
-        description: null,
-        price: null,
-        tags: [],
-        images: []
-      */
       Toast.fire({
         type: "success",
         title: "Updated  successfully"
@@ -273,11 +235,7 @@ export default {
 
       $("#product").modal("hide");
     },
-    editProduct(product) {
-      this.modal = "edit";
-      this.product = product;
-      $("#product").modal("show");
-    },
+
     deleteProduct(doc) {
       Swal.fire({
         title: "Are you sure?",
@@ -301,15 +259,53 @@ export default {
       });
     },
     readData() {},
-    addProduct() {
-      this.$firestore.products.add(this.product);
-
-      Toast.fire({
-        icon: "success",
-        title: "Product created successfully"
+    editProduct(order) {
+      const ordersRef = db
+        .collection("orders")
+        .doc(order.key)
+        .update({
+          status: "Success"
+        })
+        .then(function() {
+          console.log("sss");
+        });
+    },
+    ejectProduct(order) {
+      this.$firestore.orders.doc(order.key).update({
+        status: "Cancel"
       });
+    },
+    getOrder() {
+      const ordersRef = db.collection("orders").orderBy("time", "desc");
+      let allOrders = ordersRef
+        .get()
+        .then(snapshot => {
+          snapshot.forEach(doc => {
+            this.orders.push({
+              key: doc.id,
+              email: doc.data().user.email,
+              invoice: doc.data().invoice,
+              date: doc.data().date,
+              amount: doc.data().totalPrice,
+              status: doc.data().status,
+              haveEvidence: doc.data().haveEvidence,
+              haveSlip: doc.data().haveSlip,
+              evidencePDF: doc.data().evidencePDF,
+              slipPDF: doc.data().slipPDF
+            });
 
-      $("#product").modal("hide");
+            //console.log(checkPdf);
+          });
+        })
+        .catch(err => {
+          console.log("Error getting documents", err);
+        });
+    },
+    getQuotation(order) {
+      window.open(order.evidencePDF, "_blank");
+    },
+    getAccption(order) {
+      window.open(order.slipPDF, "_blank");
     }
   },
 
@@ -319,17 +315,15 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-
-.img-wrapp{
+.img-wrapp {
   position: relative;
 }
-.img-wrapp span.delete-img{
-    position: absolute;
-    top: -14px;
-    left: -2px;
+.img-wrapp span.delete-img {
+  position: absolute;
+  top: -14px;
+  left: -2px;
 }
-.img-wrapp span.delete-img:hover{
+.img-wrapp span.delete-img:hover {
   cursor: pointer;
 }
-
 </style>

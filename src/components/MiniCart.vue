@@ -1,6 +1,6 @@
 <template>
   <div class="mini-cart">
-    Modal
+    <!-- Modal -->
     <div
       class="modal fade"
       id="miniCart"
@@ -59,7 +59,7 @@ export default {
   methods: {
     checkout() {
       $("#miniCart").modal("hide");
-      this.$router.push("/checkout");
+      this.$router.push("/user/checkout");
     }
   }
 };

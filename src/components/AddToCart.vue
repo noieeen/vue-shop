@@ -2,7 +2,7 @@
   <div class="add-to-cart">
    
         <button class="btn btn-primary mr-1" @click="addToCart">Add to Cart</button>
-        <button class="btn btn-primary mr-1" @click="popup">More Details</button>
+        <!-- <button class="btn btn-primary mr-1" @click="popup">More Details</button> -->
     
   </div>
 </template>
@@ -39,6 +39,7 @@ export default {
       $('#ProductPopup').modal('show');
       // this.$store.commit('addToCart', this.item)
       // console.log('pId',this.item);
+
     }
 
   }

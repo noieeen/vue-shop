@@ -5,8 +5,25 @@ import jQuery from "jquery";
 import { fb } from "./firebase";
 import VueFirestore from "vue-firestore";
 
+/* CSS */
+import './assets/css/tailwind.css'
+// const bourbon = require("bourbon")
+
+/* SEARCH */
+
+import Autocomplete from '@trevoreyre/autocomplete-vue'
+import '@trevoreyre/autocomplete-vue/dist/style.css'
+
+Vue.use(Autocomplete)
+
+import Multiselect from 'vue-multiselect'
+
+// register globally
+Vue.use(Multiselect)
+
+
 //import stripe from 'stripe';
-const stripe = require('stripe')('sk_test_8amaJfyLyRDDyyWfsAxqy2DK00aEdVg4L8');
+//const stripe = require('stripe')('sk_test_8amaJfyLyRDDyyWfsAxqy2DK00aEdVg4L8');
 
 
 // import Vuex from 'vuex';
@@ -79,3 +96,4 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
  
 Vue.use(VueAxios, axios)
+
